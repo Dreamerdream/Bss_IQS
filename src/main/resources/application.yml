@@ -1,0 +1,38 @@
+logging:
+  level:
+    root: INFO
+    com.hgh.springbootdemo: DEBUG
+
+
+spring:
+  datasource:
+    name: seimi
+    type: com.alibaba.druid.pool.DruidDataSource
+    url : jdbc:mysql://localhost:3306/data_query_system
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat,wall,log4j
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+
+
+server:
+  port: 8081
