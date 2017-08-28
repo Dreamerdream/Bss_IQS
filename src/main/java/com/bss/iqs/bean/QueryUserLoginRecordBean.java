@@ -2,7 +2,7 @@ package com.bss.iqs.bean;
 
 import java.util.Date;
 
-public class UserLoginResult {
+public class QueryUserLoginRecordBean {
 
     private String userGroupName;
     private String username;

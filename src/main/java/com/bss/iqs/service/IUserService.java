@@ -2,9 +2,10 @@ package com.bss.iqs.service;
 
 
 import com.baomidou.mybatisplus.service.IService;
-import com.bss.iqs.bean.Result;
-import com.bss.iqs.bean.UserLoginResult;
-import com.bss.iqs.bean.UserResult;
+import com.bss.iqs.bean.ResultBean;
+import com.bss.iqs.bean.QueryUserLoginRecordBean;
+import com.bss.iqs.bean.AddUserBean;
+import com.bss.iqs.entity.QueryUserLogin;
 import com.bss.iqs.entity.User;
 
 import java.util.List;
@@ -18,20 +19,20 @@ import java.util.List;
  * @since 2017-08-25
  */
 public interface IUserService extends IService<User> {
-    public void saveUser(User user);
+    public ResultBean saveUser(User user);
 
-    public void deleteUser(Integer id);
+    public ResultBean deleteUser(Integer id);
 
-    public void updateUser(User user);
+    public ResultBean updateUser(User user);
 
     public User getUser(Integer id);
 
 
-    public User queryUser(String type,String keyword,Integer pageNum,Integer pageSize);
+    public List<QueryUserLogin> queryUser(String type, String keyword, Integer pageNum, Integer pageSize);
 
-    public UserResult getDepartmentAndUserGroup();
+    public AddUserBean getDepartmentAndUserGroup();
 
-    public Result login(String username, String password);
+    public ResultBean login(String username, String password);
 
-    public List<UserLoginResult> queryAll();
+    public List<QueryUserLoginRecordBean> queryAll();
 }

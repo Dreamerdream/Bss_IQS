@@ -2,6 +2,7 @@ package com.bss.iqs.service.impl;
 
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.Rds;
 import com.bss.iqs.mapper.RdsMapper;
 import com.bss.iqs.service.IRdsService;
@@ -24,18 +25,36 @@ public class RdsServiceImpl extends ServiceImpl<RdsMapper, Rds> implements IRdsS
     private RdsMapper rdsMapper;
 
     @Override
-    public void saveRDS(Rds rds) {
-        rdsMapper.insert(rds);
+    public ResultBean saveRDS(Rds rds) {
+        Integer insert = rdsMapper.insert(rds);
+        if (insert != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("添加成功");
+        }
+        return null;
     }
 
     @Override
-    public void deleteRDS(Integer id) {
-        rdsMapper.deleteById(id);
+    public ResultBean deleteRDS(Integer id) {
+        Integer integer = rdsMapper.deleteById(id);
+        if (integer != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("删除成功");
+        }
+        return null;
     }
 
     @Override
-    public void updateRDS(Rds rds) {
-        rdsMapper.updateById(rds);
+    public ResultBean updateRDS(Rds rds) {
+        Integer integer = rdsMapper.updateById(rds);
+        if (integer != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("更新成功");
+        }
+        return null;
     }
 
     @Override

@@ -7,7 +7,7 @@ import com.bss.iqs.entity.UserGroup;
 
 import java.util.List;
 
-public class UserResult {
+public class AddUserBean {
 
     private List<Department> departments;
 

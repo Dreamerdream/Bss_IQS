@@ -40,7 +40,7 @@ public class MpGenerator {
 
         StrategyConfig sc = new StrategyConfig();
         sc.setNaming(NamingStrategy.underline_to_camel);
-        sc.setInclude(new String[]{"data_query_group"});
+        sc.setInclude(new String[]{"template"});
 //        sc.setSuperControllerClass("com.baomidou.demo.TestController");
 //        sc.setSuperMapperClass("com.baomidou.demo.TestMapper");
 //        sc.setSuperServiceClass("com.baomidou.demo.TestService");

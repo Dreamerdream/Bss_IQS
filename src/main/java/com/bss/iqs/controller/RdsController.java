@@ -1,6 +1,7 @@
 package com.bss.iqs.controller;
 
 
+import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.Rds;
 import com.bss.iqs.service.IRdsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +39,17 @@ public class RdsController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public void deleteRDS(@PathVariable Integer id){
+    public ResultBean deleteRDS(@PathVariable Integer id){
         System.out.println("111111");
-        rdsService.deleteRDS(id);
+        ResultBean resultBean = rdsService.deleteRDS(id);
+        return resultBean;
     }
 
     @GetMapping("/update")
     @ResponseBody
-    public void updateRDS(Rds rds){
-        rdsService.updateRDS(rds);
+    public ResultBean updateRDS(Rds rds){
+        ResultBean resultBean = rdsService.updateRDS(rds);
+        return resultBean;
     }
 
 

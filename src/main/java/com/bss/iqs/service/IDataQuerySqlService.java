@@ -2,6 +2,7 @@ package com.bss.iqs.service;
 
 
 import com.baomidou.mybatisplus.service.IService;
+import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.DataQueryGroup;
 import com.bss.iqs.entity.DataQuerySql;
 
@@ -16,15 +17,15 @@ import java.util.List;
  * @since 2017-08-25
  */
 public interface IDataQuerySqlService extends IService<DataQuerySql> {
-    public void saveSql(DataQuerySql sql);
+    public ResultBean saveSql(DataQuerySql sql);
 
-    public void deleteSql(Integer id);
+    public ResultBean deleteSql(Integer id);
 
-    public void updateSql(DataQuerySql sql);
+    public ResultBean updateSql(DataQuerySql sql);
 
     public DataQuerySql getSql(Integer id);
 
     public List<DataQueryGroup> getDataQueryGroup();
 
-    public List<DataQuerySql> querySql(Integer groupId,String keyword,Integer pageNum,Integer pageSize);
+    public List<DataQuerySql> querySql(Integer groupId, String keyword);
 }

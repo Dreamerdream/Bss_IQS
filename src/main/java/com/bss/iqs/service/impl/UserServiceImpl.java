@@ -1,24 +1,20 @@
 package com.bss.iqs.service.impl;
 
 
-import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.bss.iqs.bean.Result;
-import com.bss.iqs.bean.UserLoginResult;
-import com.bss.iqs.bean.UserResult;
-import com.bss.iqs.entity.Department;
-import com.bss.iqs.entity.LoginRecord;
-import com.bss.iqs.entity.User;
-import com.bss.iqs.entity.UserGroup;
-import com.bss.iqs.mapper.DepartmentMapper;
-import com.bss.iqs.mapper.LoginRecordMapper;
-import com.bss.iqs.mapper.UserGroupMapper;
-import com.bss.iqs.mapper.UserMapper;
+import com.bss.iqs.bean.ResultBean;
+import com.bss.iqs.bean.QueryUserLoginRecordBean;
+import com.bss.iqs.bean.AddUserBean;
+import com.bss.iqs.entity.*;
+import com.bss.iqs.mapper.*;
 import com.bss.iqs.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,20 +39,40 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private DepartmentMapper departmentMapper;
     @Autowired
     private UserGroupMapper userGroupMapper;
+    @Autowired
+    private QueryUserLoginMapper queryUserLoginMapper;
 
     @Override
-    public void saveUser(User user) {
-        userMapper.insert(user);
+    public ResultBean saveUser(User user) {
+        Integer insert = userMapper.insert(user);
+        if (insert != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("添加成功");
+        }
+        return null;
     }
 
     @Override
-    public void deleteUser(Integer id) {
-        userMapper.deleteById(id);
+    public ResultBean deleteUser(Integer id) {
+        Integer integer = userMapper.deleteById(id);
+        if (integer != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("删除成功");
+        }
+        return null;
     }
 
     @Override
-    public void updateUser(User user) {
-        userMapper.updateById(user);
+    public ResultBean updateUser(User user) {
+        Integer integer = userMapper.updateById(user);
+        if (integer != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("修改成功");
+        }
+        return null;
     }
 
     @Override
@@ -65,33 +81,81 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public User queryUser(String type, String keyword, Integer pageNum, Integer pageSize) {
+    public List<QueryUserLogin> queryUser(String type, String keyword, Integer pageNum, Integer pageSize) {
+        List<QueryUserLogin> queryUserLogins = new ArrayList<>();
+        if ("用户名".equals(type)){
+            queryUserLogins = queryUserLoginMapper.selectPage(new Page<QueryUserLogin>(pageNum,pageSize),
+                    new EntityWrapper<QueryUserLogin>().eq("username",type).like("username",keyword));
+        }else if ("所属分组".equals(type)){
+            queryUserLogins = queryUserLoginMapper.selectPage(new Page<QueryUserLogin>(pageNum,pageSize),
+                    new EntityWrapper<QueryUserLogin>().eq("groupName",type).like("groupName",keyword));
+        }else if ("所属部门".equals(type)){
+            queryUserLogins = queryUserLoginMapper.selectPage(new Page<QueryUserLogin>(pageNum,pageSize),
+                    new EntityWrapper<QueryUserLogin>().eq("departmentName",type).like("departmentName",keyword));
+        }
+        if (queryUserLogins != null && queryUserLogins.size() != 0){
+            return queryUserLogins;
+        }
+
         return null;
     }
 
     @Override
-    public UserResult getDepartmentAndUserGroup() {
+    public AddUserBean getDepartmentAndUserGroup() {
+        Wrapper<Department> departmentWrapper = new EntityWrapper<>();
+        List<Department> departments = departmentMapper.selectList(departmentWrapper);
+        Wrapper<UserGroup> userGroupWrapper = new EntityWrapper<>();
+        List<UserGroup> userGroups = userGroupMapper.selectList(userGroupWrapper);
+        if (departments != null && departments.size() != 0 && userGroups != null && userGroups.size() != 0){
+            AddUserBean userResult = new AddUserBean();
+            userResult.setDepartments(departments);
+            userResult.setUserGroups(userGroups);
+            return userResult;
+        }
         return null;
     }
 
+    @Transactional
     @Override
-    public Result login(String username, String password) {
-
+    public ResultBean login(String username, String password) {
         Wrapper<User> wrapper = new EntityWrapper<>();
         wrapper.eq("username",username).eq("password",password);
         List<User> users = userMapper.selectList(wrapper);
         if (users != null && users.size() != 0){
-            Result result = null;
+            ResultBean result = null;
             if (users != null && users.size() != 0){
                 User user = users.get(0);
                 result.setErrorCode(0);
                 result.setErrorReason("登录成功");
 
-                //插入登录记录表
+                //插入登录记录时间表
                 LoginRecord loginRecord = new LoginRecord();
                 loginRecord.setLoginTime(new Date());
                 loginRecord.setUserId(user.getId());
                 loginRecordMapper.insert(loginRecord);
+
+                //记录用户登录，便于查询
+                Wrapper<QueryUserLogin> queryUserLoginWrapper = new EntityWrapper<>();
+                queryUserLoginWrapper.eq("username",user.getUsername());
+                List<QueryUserLogin> queryUserLogins = queryUserLoginMapper.selectList(queryUserLoginWrapper);
+                if (queryUserLogins != null && queryUserLogins.size() !=0 ){
+                    QueryUserLogin queryUserLogin = queryUserLogins.get(0);
+                    queryUserLogin.setLoginCount(queryUserLogin.getLoginCount()+1);
+                    queryUserLoginMapper.updateById(queryUserLogin);
+                }else {
+                    QueryUserLogin queryUserLogin = new QueryUserLogin();
+                    Department department = departmentMapper.selectById(user.getDepartmentId());
+                    queryUserLogin.setDepartmentName(department.getName());
+                    UserGroup userGroup = userGroupMapper.selectById(user.getGroupId());
+                    queryUserLogin.setGroupName(userGroup.getName());
+                    queryUserLogin.setLastLoginTime(new Date());
+                    queryUserLogin.setLoginCount(1);
+                    queryUserLogin.setRealname(user.getRealname());
+                    queryUserLogin.setUsername(user.getUsername());
+                    queryUserLogin.setStatus(user.getStatus());
+                    queryUserLoginMapper.insert(queryUserLogin);
+                }
+
             }else {
                 result.setErrorCode(1);
                 result.setErrorReason("用户名或者密码错误");
@@ -102,8 +166,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public List<UserLoginResult> queryAll() {
-        List<UserLoginResult> userLoginResults = new ArrayList<>();
+    public List<QueryUserLoginRecordBean> queryAll() {
+        List<QueryUserLoginRecordBean> userLoginResults = new ArrayList<>();
         Wrapper<User> userWrapper = new EntityWrapper<>();
         List<User> users = userMapper.selectList(userWrapper);
         if (users != null && users.size() != 0){
@@ -114,7 +178,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 Wrapper<LoginRecord> loginRecordwrapper = new EntityWrapper<>();
                 loginRecordwrapper.eq("userId",user.getId()).orderBy("loginTime",false);
                 List<LoginRecord> loginRecords = loginRecordMapper.selectList(loginRecordwrapper);
-                UserLoginResult userLoginResult = new UserLoginResult();
+                QueryUserLoginRecordBean userLoginResult = new QueryUserLoginRecordBean();
                 userLoginResult.setCount(loginRecords.size());
                 userLoginResult.setDepartmentName(department.getName());
                 userLoginResult.setRealname(user.getRealname());

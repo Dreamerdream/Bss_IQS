@@ -2,6 +2,7 @@ package com.bss.iqs.service;
 
 
 import com.baomidou.mybatisplus.service.IService;
+import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.Rds;
 
 import java.util.List;
@@ -15,11 +16,11 @@ import java.util.List;
  * @since 2017-08-25
  */
 public interface IRdsService extends IService<Rds> {
-    public void saveRDS(Rds rds);
+    public ResultBean saveRDS(Rds rds);
 
-    public void deleteRDS(Integer id);
+    public ResultBean deleteRDS(Integer id);
 
-    public void updateRDS(Rds rds);
+    public ResultBean updateRDS(Rds rds);
 
     public Rds getRDS(Integer id);
 

@@ -1,7 +1,10 @@
 package com.bss.iqs.service.impl;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.DataQueryGroup;
 import com.bss.iqs.entity.DataQuerySql;
 import com.bss.iqs.mapper.DataQuerySqlMapper;
@@ -25,18 +28,37 @@ public class DataQuerySqlServiceImpl extends ServiceImpl<DataQuerySqlMapper, Dat
     @Autowired
     private DataQuerySqlMapper dataQuerySqlMapper;
     @Override
-    public void saveSql(DataQuerySql sql) {
-        dataQuerySqlMapper.insert(sql);
+    public ResultBean saveSql(DataQuerySql sql) {
+        Integer insert = dataQuerySqlMapper.insert(sql);
+        if (insert != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("添加成功");
+        }
+        return null;
     }
 
     @Override
-    public void deleteSql(Integer id) {
-        dataQuerySqlMapper.deleteById(id);
+    public ResultBean deleteSql(Integer id) {
+        Integer integer = dataQuerySqlMapper.deleteById(id);
+        if (integer != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("删除成功");
+        }
+        return null;
+
     }
 
     @Override
-    public void updateSql(DataQuerySql sql) {
-        dataQuerySqlMapper.updateById(sql);
+    public ResultBean updateSql(DataQuerySql sql) {
+        Integer integer = dataQuerySqlMapper.updateById(sql);
+        if (integer != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("更新成功");
+        }
+        return null;
     }
 
     @Override
@@ -50,7 +72,13 @@ public class DataQuerySqlServiceImpl extends ServiceImpl<DataQuerySqlMapper, Dat
     }
 
     @Override
-    public List<DataQuerySql> querySql(Integer groupId, String keyword, Integer pageNum, Integer pageSize) {
+    public List<DataQuerySql> querySql(Integer groupId, String keyword) {
+        Wrapper<DataQuerySql> dataQuerySqlWrapper = new EntityWrapper<>();
+        dataQuerySqlWrapper.eq("groupId",groupId).like("sqlContent",keyword);
+        List<DataQuerySql> dataQuerySqls = dataQuerySqlMapper.selectList(dataQuerySqlWrapper);
+        if (dataQuerySqls != null && dataQuerySqls.size() != 0){
+            return dataQuerySqls;
+        }
         return null;
     }
 }

@@ -1,6 +1,6 @@
 package com.bss.iqs.bean;
 
-public class Result {
+public class ResultBean {
     private int errorCode; //0表示成功，1表示失败
     private String errorReason; //原因
 

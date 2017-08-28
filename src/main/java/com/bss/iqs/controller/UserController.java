@@ -1,9 +1,11 @@
 package com.bss.iqs.controller;
 
 
-import com.bss.iqs.bean.Result;
-import com.bss.iqs.bean.UserLoginResult;
-import com.bss.iqs.bean.UserResult;
+
+import com.bss.iqs.bean.AddUserBean;
+import com.bss.iqs.bean.QueryUserLoginRecordBean;
+import com.bss.iqs.bean.ResultBean;
+import com.bss.iqs.entity.QueryUserLogin;
 import com.bss.iqs.entity.User;
 import com.bss.iqs.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,21 +35,26 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/save")
-    public void saveUser(User user){
-        userService.saveUser(user);
+    @ResponseBody
+    public ResultBean saveUser(User user){
+        ResultBean resultBean = userService.saveUser(user);
+        return resultBean;
     }
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public void deleteUser(@PathVariable Integer id){
+    public ResultBean deleteUser(@PathVariable Integer id){
         System.out.println("111111");
-        userService.deleteUser(id);
+        ResultBean resultBean = userService.deleteUser(id);
+        return resultBean;
+
     }
 
     @GetMapping("/update")
     @ResponseBody
-    public void updateUser(User user){
-        userService.updateUser(user);
+    public ResultBean updateUser(User user){
+        ResultBean resultBean = userService.updateUser(user);
+        return resultBean;
     }
 
 
@@ -62,33 +69,34 @@ public class UserController {
 
     @RequestMapping("/query/{type}/{keyword}/{pageNum}/{pageSize}")
     public ModelAndView queryUser(@PathVariable String type,@PathVariable String keyword,@PathVariable Integer pageNum,@PathVariable Integer pageSize){
-        User user = userService.queryUser(type,keyword,pageNum,pageSize);
+        List<QueryUserLogin> queryUserLogins = userService.queryUser(type, keyword, pageNum, pageSize);
         ModelAndView modelAndView = new ModelAndView("updateUser");
-        modelAndView.addObject("user",user);
+        modelAndView.addObject("queryUserLogins",queryUserLogins);
         return  modelAndView;
     }
 
     @RequestMapping("/beforeAdd")
-
     public ModelAndView getDepartmentAndUserGroup(){
-        UserResult departmentAndUserGroup = userService.getDepartmentAndUserGroup();
+        AddUserBean departmentAndUserGroup = userService.getDepartmentAndUserGroup();
         ModelAndView modelAndView = new ModelAndView("addUser");
         modelAndView.addObject("departmentAndUserGroup",departmentAndUserGroup);
         return  modelAndView;
     }
 
+    //交给shiro处理
     @RequestMapping("/login/username/password")
     @ResponseBody
-    public Result login(@PathVariable String username, @PathVariable String password){
-        Result result = userService.login(username, password);
-        return result;
+    public ResultBean login(@PathVariable String username, @PathVariable String password){
+        ResultBean login = userService.login(username, password);
+        return login;
     }
 
     @RequestMapping("/queryAll")
     @ResponseBody
-    public List<UserLoginResult> queryAll(){
-        List<UserLoginResult> userLoginResults = userService.queryAll();
-        return userLoginResults;
+    public ModelAndView queryAll(){
+        List<QueryUserLoginRecordBean> queryUserLoginRecordBeans = userService.queryAll();
+        ModelAndView modelAndView = new ModelAndView("");
+        return modelAndView;
     }
 	
 }

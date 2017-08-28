@@ -1,6 +1,7 @@
 package com.bss.iqs.controller;
 
 
+import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.UserGroup;
 import com.bss.iqs.service.IUserGroupService;
 import com.bss.iqs.service.IUserService;
@@ -31,21 +32,24 @@ public class UserGroupController {
 
     @GetMapping("/save")
     @ResponseBody
-    public void SaveUserGroup(UserGroup userGroup){
+    public ResultBean SaveUserGroup(UserGroup userGroup){
 
-        userGroupService.saveUserGroup(userGroup);
+        ResultBean resultBean = userGroupService.saveUserGroup(userGroup);
+        return resultBean;
 
     }
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public void deleteUserGroup(@PathVariable Integer id){
-        userGroupService.deleteUserGroup(id);
+    public ResultBean deleteUserGroup(@PathVariable Integer id){
+        ResultBean resultBean = userGroupService.deleteUserGroup(id);
+        return resultBean;
     }
 
     @GetMapping("/update")
-    public void updateUserGroup(UserGroup userGroup){
-        userGroupService.updateUserGroup(userGroup);
+    public ResultBean updateUserGroup(UserGroup userGroup){
+        ResultBean resultBean = userGroupService.updateUserGroup(userGroup);
+        return resultBean;
     }
 
 

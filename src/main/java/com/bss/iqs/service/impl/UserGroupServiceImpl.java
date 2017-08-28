@@ -2,6 +2,7 @@ package com.bss.iqs.service.impl;
 
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.UserGroup;
 import com.bss.iqs.mapper.UserGroupMapper;
 import com.bss.iqs.service.IUserGroupService;
@@ -22,18 +23,36 @@ public class UserGroupServiceImpl extends ServiceImpl<UserGroupMapper, UserGroup
     private UserGroupMapper userGroupMapper;
 
     @Override
-    public void saveUserGroup(UserGroup userGroup) {
-        userGroupMapper.insert(userGroup);
+    public ResultBean saveUserGroup(UserGroup userGroup) {
+        Integer insert = userGroupMapper.insert(userGroup);
+        if (insert != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("添加成功");
+        }
+        return null;
     }
 
     @Override
-    public void deleteUserGroup(Integer id) {
-        userGroupMapper.deleteById(id);
+    public ResultBean deleteUserGroup(Integer id) {
+        Integer integer = userGroupMapper.deleteById(id);
+        if (integer != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("删除成功");
+        }
+        return null;
     }
 
     @Override
-    public void updateUserGroup(UserGroup userGroup) {
-        userGroupMapper.updateById(userGroup);
+    public ResultBean updateUserGroup(UserGroup userGroup) {
+        Integer integer = userGroupMapper.updateById(userGroup);
+        if (integer != null){
+            ResultBean result = new ResultBean();
+            result.setErrorCode(0);
+            result.setErrorReason("更新成功");
+        }
+        return null;
     }
 
     @Override
