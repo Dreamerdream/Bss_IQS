@@ -33,14 +33,14 @@ public class MpGenerator {
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL);
         dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456");
-        dsc.setUrl("jdbc:mysql://localhost:3306/data_query_system?characterEncoding=utf8");
+        dsc.setUsername("bss_max");
+        dsc.setPassword("bss_max~123");
+        dsc.setUrl("jdbc:mysql://192.168.0.241:3306/Bss-max?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         StrategyConfig sc = new StrategyConfig();
         sc.setNaming(NamingStrategy.underline_to_camel);
-        sc.setInclude(new String[]{"template"});
+        sc.setInclude(new String[]{"plan_task_record"});
 //        sc.setSuperControllerClass("com.baomidou.demo.TestController");
 //        sc.setSuperMapperClass("com.baomidou.demo.TestMapper");
 //        sc.setSuperServiceClass("com.baomidou.demo.TestService");

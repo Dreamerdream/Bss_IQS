@@ -31,10 +31,11 @@ public class RdsController {
     @Autowired
     private IRdsService rdsService;
 
-    @GetMapping("/save/")
+    @GetMapping("/save")
     @ResponseBody
-    public void saveRDS(Rds rds){
-        rdsService.saveRDS(rds);
+    public ResultBean saveRDS(Rds rds){
+        ResultBean resultBean = rdsService.saveRDS(rds);
+        return resultBean;
     }
 
     @GetMapping("/delete/{id}")

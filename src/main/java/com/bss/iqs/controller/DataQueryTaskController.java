@@ -1,6 +1,7 @@
 package com.bss.iqs.controller;
 
 
+import com.bss.iqs.bean.AddDataQueryTaskBean;
 import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.DataQueryTask;
 import com.bss.iqs.service.IDataQueryTaskService;
@@ -52,14 +53,14 @@ public class DataQueryTaskController {
 
     @RequestMapping("/get/{id}")
     public ModelAndView getDataQueryTask(@PathVariable Integer id){
-        DataQueryTask dataQueryTask = queryTaskService.getDataQueryTask(id);
+        DataQueryTask dataQueryTask = queryTaskService.findDataQueryTaskById(id);
         ModelAndView modelAndView = new ModelAndView("update");
         modelAndView.addObject("user",dataQueryTask);
         return  modelAndView;
     }
 
 
-    @RequestMapping("/query/{type}/{keyword}/")
+    @RequestMapping("/query/{type}/{keyword}")
     public ModelAndView queryDataQueryTask(@PathVariable Integer type,@PathVariable String keyword){
         List<DataQueryTask> dataQueryTasks = queryTaskService.queryDataQueryTask(type, keyword);
         ModelAndView modelAndView = new ModelAndView("updateUser");
@@ -68,12 +69,11 @@ public class DataQueryTaskController {
 
     }
 
-    @RequestMapping("/beforeAdd")
-
+    @RequestMapping("/getTemplateAndAddress")
     public ModelAndView getTemplateAndAddress(){
-        queryTaskService.getTemplateAndAddress();
-        ModelAndView modelAndView = new ModelAndView("addUser");
-     //   modelAndView.addObject("departmentAndUserGroup",departmentAndUserGroup);
+        AddDataQueryTaskBean templateAndAddress = queryTaskService.getTemplateAndAddress();
+        ModelAndView modelAndView = new ModelAndView("");
+        modelAndView.addObject("templateAndAddress",templateAndAddress);
         return  modelAndView;
     }
 

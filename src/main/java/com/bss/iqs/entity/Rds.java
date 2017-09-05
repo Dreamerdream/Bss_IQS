@@ -1,6 +1,7 @@
 package com.bss.iqs.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author hgh
- * @since 2017-08-25
+ * @since 2017-09-01
  */
 public class Rds extends Model<Rds> {
 
@@ -39,9 +40,11 @@ public class Rds extends Model<Rds> {
      */
 	private String password;
     /**
-     * 启用状态
+     * 启用状态,0：关，1：开
      */
 	private String status;
+	private Date createTime;
+	private Date updateTime;
 
 
 	public Integer getId() {
@@ -92,6 +95,22 @@ public class Rds extends Model<Rds> {
 		this.status = status;
 	}
 
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -106,6 +125,8 @@ public class Rds extends Model<Rds> {
 			", username=" + username +
 			", password=" + password +
 			", status=" + status +
+			", createTime=" + createTime +
+			", updateTime=" + updateTime +
 			"}";
 	}
 }

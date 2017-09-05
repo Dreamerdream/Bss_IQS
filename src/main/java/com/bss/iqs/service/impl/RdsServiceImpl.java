@@ -9,6 +9,7 @@ import com.bss.iqs.service.IRdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,11 +27,15 @@ public class RdsServiceImpl extends ServiceImpl<RdsMapper, Rds> implements IRdsS
 
     @Override
     public ResultBean saveRDS(Rds rds) {
+        Date date = new Date();
+        rds.setCreateTime(date);
+        rds.setUpdateTime(date);
         Integer insert = rdsMapper.insert(rds);
         if (insert != null){
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("添加成功");
+            return result;
         }
         return null;
     }
@@ -42,17 +47,20 @@ public class RdsServiceImpl extends ServiceImpl<RdsMapper, Rds> implements IRdsS
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("删除成功");
+            return result;
         }
         return null;
     }
 
     @Override
     public ResultBean updateRDS(Rds rds) {
+        rds.setUpdateTime(new Date());
         Integer integer = rdsMapper.updateById(rds);
         if (integer != null){
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("更新成功");
+            return result;
         }
         return null;
     }

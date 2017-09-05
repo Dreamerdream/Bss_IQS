@@ -1,6 +1,7 @@
 package com.bss.iqs.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author hgh
- * @since 2017-08-25
+ * @since 2017-09-01
  */
 @TableName("data_query_group")
 public class DataQueryGroup extends Model<DataQueryGroup> {
@@ -36,6 +37,8 @@ public class DataQueryGroup extends Model<DataQueryGroup> {
      * 关联任务id
      */
 	private Integer dataQueryTaskId;
+	private Date createTime;
+	private Date updateTime;
 
 
 	public Integer getId() {
@@ -70,6 +73,22 @@ public class DataQueryGroup extends Model<DataQueryGroup> {
 		this.dataQueryTaskId = dataQueryTaskId;
 	}
 
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -82,6 +101,8 @@ public class DataQueryGroup extends Model<DataQueryGroup> {
 			", name=" + name +
 			", logo=" + logo +
 			", dataQueryTaskId=" + dataQueryTaskId +
+			", createTime=" + createTime +
+			", updateTime=" + updateTime +
 			"}";
 	}
 }

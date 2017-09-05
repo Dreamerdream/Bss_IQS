@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--不知道行不行-->
+<mapper namespace="com.bss.iqs.dao" >
+
+    <resultMap id="getMap" type="com.bss.iqs.entity.LoginRecord">
+
+       <result column="total" property="count"></result>
+       <result column="maxLTime" property="loginTime"></result>
+       <result column="username" property="username"></result>
+       <result column="userGroupName" property="userGroupName"></result>
+       <result column="realname" property="realname"></result>
+       <result column="dapartmentName" property="dapartmentName"></result>
+       <result column="status" property="status"></result>
+
+    </resultMap>
+    
+    <select id="getUserLoginRecord" parameterType="java.util.Map" resultType="getMap" statementType="STATEMENT">
+        SELECT c.total,m.maxLTime,p.userGroupName,p.username,p.realname,p.dapartmentName,p.status FROM
+        `login_record` p,
+        (
+        SELECT COUNT(*) total ,${column} FROM `login_record` WHERE ${column} LIKE CONCAT('%', #{columnValue}, '%') GROUP BY ${column}
+        )AS c,
+        (
+        SELECT MAX(loginTime) maxLTime,${column} FROM `login_record` GROUP BY ${column}
+        ) AS  m WHERE c.${column} = m.${column} AND p.`loginTime` = m.maxLTime LIMIT #{pageStart},#{pageEnd}
+    </select>
+
+
+    <select id="getUserLoginRecord2" parameterType="java.util.Map" resultType="getMap" statementType="STATEMENT">
+        SELECT c.total,m.maxLTime,p.userGroupName,p.username,p.realname,p.dapartmentName,p.status FROM
+        `login_record` p,
+        (
+        SELECT COUNT(*) total ,${column} FROM `login_record` WHERE ${column} LIKE CONCAT('%', #{columnValue}, '%') GROUP BY ${column}
+        )AS c,
+        (
+        SELECT MAX(loginTime) maxLTime,${column} FROM `login_record` GROUP BY ${column}
+        ) AS  m WHERE c.${column} = m.${column} AND p.`loginTime` = m.maxLTime LIMIT #{pageStart},#{pageEnd}
+    </select>
+</mapper>

@@ -33,6 +33,25 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
+  http:
+    multipart:
+      max-file-size: 10Mb
+      maxRequestSize: 10Mb
+#  freemarker:
+#    allow-request-override: false
+#    cache: true
+#    charset: UTF-8
+#    check-template-location: true
+#    content-type: text/html
+#    expose-request-attributes: false
+#    expose-session-attributes: false
+#    expose-spring-macro-helpers: false
+
+mybatis:
+
+  mapper-locations: classpath:mapper/*.xml
 
 server:
   port: 8081
+
+

@@ -31,7 +31,6 @@ public class AreaController {
     @ResponseBody
     public ModelAndView getCitys(@PathVariable Integer parentId){
         ModelAndView modelAndView = new ModelAndView("");
-
         List<String> citys = areaService.getCitys(parentId);
         modelAndView.addObject("citys",citys);
         return modelAndView;

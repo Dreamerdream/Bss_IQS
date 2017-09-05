@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
  * </p>
  *
  * @author hgh
- * @since 2017-08-25
+ * @since 2017-08-28
  */
 @Controller
-@RequestMapping("/test/department")
-public class DepartmentController {
+@RequestMapping("/test/systemPermission")
+public class SystemPermissionController {
 	
 }

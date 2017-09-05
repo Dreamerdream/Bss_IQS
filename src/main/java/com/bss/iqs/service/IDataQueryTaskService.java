@@ -2,6 +2,7 @@ package com.bss.iqs.service;
 
 
 import com.baomidou.mybatisplus.service.IService;
+import com.bss.iqs.bean.AddDataQueryTaskBean;
 import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.DataQueryTask;
 
@@ -23,11 +24,11 @@ public interface IDataQueryTaskService extends IService<DataQueryTask> {
 
     public ResultBean updateDataQueryTask(DataQueryTask dataQueryTask);
 
-    public DataQueryTask getDataQueryTask(Integer id);
+    public DataQueryTask findDataQueryTaskById(Integer id);
 
     public List<DataQueryTask> queryDataQueryTask(Integer type, String keyword);
 
-    public void getTemplateAndAddress();
+    public AddDataQueryTaskBean getTemplateAndAddress();
 
     public List<DataQueryTask> queryAll();
 	

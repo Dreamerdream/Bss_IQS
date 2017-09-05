@@ -18,9 +18,9 @@ import java.util.List;
  */
 public interface IDataQueryGroupService extends IService<DataQueryGroup> {
 
-    public List<DataQueryTask> getdataQueryTasks();
+    public List<DataQueryTask> findAllDataQueryTasks();
 
-    public ResultBean savedataQueryGroup(DataQueryGroup dataQueryGroup);
+    public ResultBean savedataQueryGroup(String filePath,String dataQueryGroupName,Integer dataQueryTaskId);
 
     public ResultBean updatedataQueryGroup(DataQueryGroup dataQueryGroup);
 

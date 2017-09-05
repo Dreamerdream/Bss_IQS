@@ -13,6 +13,7 @@ import com.bss.iqs.service.IDataQueryGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class DataQueryGroupServiceImpl extends ServiceImpl<DataQueryGroupMapper,
     @Autowired
     private DataQueryGroupMapper dataQueryGroupMapper;
     @Override
-    public List<DataQueryTask> getdataQueryTasks() {
+    public List<DataQueryTask> findAllDataQueryTasks() {
 
         Wrapper<DataQueryTask> dataQueryTaskWrapper = new EntityWrapper<>();
         dataQueryTaskWrapper.eq("status","1");
@@ -41,23 +42,33 @@ public class DataQueryGroupServiceImpl extends ServiceImpl<DataQueryGroupMapper,
     }
 
     @Override
-    public ResultBean savedataQueryGroup(DataQueryGroup dataQueryGroup) {
+    public ResultBean savedataQueryGroup(String filePath,String dataQueryGroupName,Integer dataQueryTaskId) {
+        DataQueryGroup dataQueryGroup = new DataQueryGroup();
+        dataQueryGroup.setDataQueryTaskId(dataQueryTaskId);
+        dataQueryGroup.setLogo(filePath);
+        dataQueryGroup.setName(dataQueryGroupName);
+        Date date = new Date();
+        dataQueryGroup.setCreateTime(date);
+        dataQueryGroup.setUpdateTime(date);
         Integer insert = dataQueryGroupMapper.insert(dataQueryGroup);
         if (insert != null){
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("添加成功");
+            return result;
         }
         return null;
     }
 
     @Override
     public ResultBean updatedataQueryGroup(DataQueryGroup dataQueryGroup) {
+        dataQueryGroup.setUpdateTime(new Date());
         Integer integer = dataQueryGroupMapper.updateById(dataQueryGroup);
         if (integer != null){
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("修改成功");
+            return result;
         }
         return null;
     }
@@ -69,6 +80,7 @@ public class DataQueryGroupServiceImpl extends ServiceImpl<DataQueryGroupMapper,
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("删除成功");
+            return result;
         }
         return null;
     }

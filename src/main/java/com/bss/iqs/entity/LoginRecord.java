@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author hgh
- * @since 2017-08-25
+ * @since 2017-09-04
  */
 @TableName("login_record")
 public class LoginRecord extends Model<LoginRecord> {
@@ -21,7 +21,7 @@ public class LoginRecord extends Model<LoginRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 登录记录id
+     * id
      */
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
@@ -30,10 +30,36 @@ public class LoginRecord extends Model<LoginRecord> {
      */
 	private Date loginTime;
     /**
-     * 用户ID
+     * 用户Id
      */
 	private Integer userId;
+    /**
+     * 用户名
+     */
+	private String username;
+    /**
+     * 用户组名
+     */
+	private String userGroupName;
+    /**
+     * 真实姓名
+     */
+	private String realname;
+	private String dapartmentName;
+    /**
+     * 状态
+     */
+	private String status;
 
+	private Integer count;
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 
 	public Integer getId() {
 		return id;
@@ -59,6 +85,46 @@ public class LoginRecord extends Model<LoginRecord> {
 		this.userId = userId;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUserGroupName() {
+		return userGroupName;
+	}
+
+	public void setUserGroupName(String userGroupName) {
+		this.userGroupName = userGroupName;
+	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
+	public String getDapartmentName() {
+		return dapartmentName;
+	}
+
+	public void setDapartmentName(String dapartmentName) {
+		this.dapartmentName = dapartmentName;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -70,6 +136,11 @@ public class LoginRecord extends Model<LoginRecord> {
 			"id=" + id +
 			", loginTime=" + loginTime +
 			", userId=" + userId +
+			", username=" + username +
+			", userGroupName=" + userGroupName +
+			", realname=" + realname +
+			", dapartmentName=" + dapartmentName +
+			", status=" + status +
 			"}";
 	}
 }

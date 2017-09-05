@@ -20,4 +20,13 @@ public class ResultBean {
     public void setErrorReason(String errorReason) {
         this.errorReason = errorReason;
     }
+
+    public ResultBean(int errorCode, String errorReason) {
+        this.errorCode = errorCode;
+        this.errorReason = errorReason;
+    }
+
+    public ResultBean(){
+
+    }
 }

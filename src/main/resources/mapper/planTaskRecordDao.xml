@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bss.iqs.dao" >
+
+    <resultMap id="getMap" type="com.bss.iqs.entity.PlanTaskRecord">
+        <result column="total" property="count"></result>
+        <result column="dataQueryGroupName" property="dataQueryGroupName"></result>
+        <result column="planTaskName" property="planTaskName"></result>
+        <result column="dataQueryTaskName" property="dataQueryTaskName"></result>
+        <result column="outputFormat" property="outputFormat"></result>
+        <result column="beginTime" property="beginTime"></result>
+        <result column="result" property="result"></result>
+        <result column="maxFTime" property="finishTime"></result>
+    </resultMap>
+    
+    <select id="getPlanTaskRecord" parameterType="java.util.Map" resultType="getMap">
+      SELECT c.total,m.maxFTime,p.dataQueryGroupName,p.planTaskName,p.dataQueryTaskName,p.outputFormat,p.beginTime,p.result FROM `plan_task_record` p,
+      (
+      SELECT COUNT(*) total ,planTaskName FROM `plan_task_record` WHERE dataQueryGroupId = #{dataQueryGroupId}  AND planTaskName LIKE CONCAT('%', #{planTaskName}, '%') GROUP BY planTaskName
+      )AS c,
+      (
+      SELECT MAX(finishTime) maxFTime,planTaskName FROM `plan_task_record` GROUP BY planTaskName
+      ) AS  m
+      WHERE c.planTaskName = m.planTaskName AND p.`finishTime` = m.maxFTime
+    </select>
+
+
+
+
+
+    <select id="getPlanTaskRecord2" parameterType="java.util.Map" resultType="getMap">
+        SELECT c.total,m.maxFTime,p.dataQueryGroupName,p.planTaskName,p.dataQueryTaskName,p.outputFormat,p.beginTime,p.result FROM `plan_task_record` p,
+        (
+        SELECT COUNT(*) total ,planTaskName FROM `plan_task_record` WHERE dataQueryGroupId = #{dataQueryGroupId}  AND planTaskName LIKE CONCAT('%', #{planTaskName}, '%') GROUP BY planTaskName
+        )AS c,
+        (
+        SELECT MAX(finishTime) maxFTime,planTaskName FROM `plan_task_record` GROUP BY planTaskName
+        ) AS  m
+        WHERE c.planTaskName = m.planTaskName AND p.`finishTime` = m.maxFTime LIMIT #{pageStart},#{pageEnd}
+    </select>
+</mapper>
