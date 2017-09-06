@@ -27,12 +27,14 @@ public class GroupPermissionController {
     private IGroupPermissionService groupPermissionService;
 
     @PostMapping(value = "/save")
+    //@RequiresPermissions("grouppermission:add")
     public ResultBean saveGroupPermission(GroupPermission groupPermission){
         ResultBean resultBean = groupPermissionService.saveGroupPermission(groupPermission);
         return resultBean;
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
+    //@RequiresPermissions("grouppermission:update")
     public ResultBean updateGroupPermission(GroupPermission groupPermission){
         ResultBean resultBean = groupPermissionService.updateGroupPermission(groupPermission);
         return resultBean;
@@ -41,18 +43,21 @@ public class GroupPermissionController {
 
 
     @RequestMapping(value = "/get/{id}")
+    //@RequiresPermissions("grouppermission:update")
     public GroupPermission getGroupPermission(@PathVariable Integer id){
         GroupPermission groupPermission = groupPermissionService.findGroupPermissionById(id);
         return groupPermission;
     }
 
     @RequestMapping(value = "/delete/{id}")
+    //@RequiresPermissions("grouppermission:delete")
     public ResultBean deleteGroupPermission(@PathVariable Integer id){
         ResultBean resultBean = groupPermissionService.deleteGroupPermission(id);
         return resultBean;
     }
 
     @RequestMapping("/getPermissionAndGroup")
+    //@RequiresPermissions("grouppermission:add")
     public ModelAndView getPermissionAndGroup(){
         AddGroupPermissionBean permissionAndGroup = groupPermissionService.getPermissionAndGroup();
         ModelAndView modelAndView = new ModelAndView("addPermission");

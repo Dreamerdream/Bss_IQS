@@ -70,9 +70,6 @@ public class User extends Model<User> {
 	private Date createTime;
 	private Date updateTime;
 
-	private Integer count;
-
-
 
 	public Integer getId() {
 		return id;

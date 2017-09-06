@@ -32,6 +32,7 @@ public class UserGroupController {
 
     @GetMapping("/save")
     @ResponseBody
+    //@RequiresPermissions("usergroup:add")
     public ResultBean SaveUserGroup(UserGroup userGroup){
 
         ResultBean resultBean = userGroupService.saveUserGroup(userGroup);
@@ -41,12 +42,15 @@ public class UserGroupController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
+    //@RequiresPermissions("usergroup:delete")
     public ResultBean deleteUserGroup(@PathVariable Integer id){
         ResultBean resultBean = userGroupService.deleteUserGroup(id);
         return resultBean;
     }
 
     @GetMapping("/update")
+    @ResponseBody
+    //@RequiresPermissions("usergroup:update")
     public ResultBean updateUserGroup(UserGroup userGroup){
         ResultBean resultBean = userGroupService.updateUserGroup(userGroup);
         return resultBean;
@@ -55,6 +59,7 @@ public class UserGroupController {
 
 
     @RequestMapping("/get/{id}")
+    //@RequiresPermissions("usergroup:update")
     public ModelAndView getUserGroup(@PathVariable Integer id){
         UserGroup userGroup = userGroupService.getUserGroup(id);
         ModelAndView modelAndView = new ModelAndView("update");

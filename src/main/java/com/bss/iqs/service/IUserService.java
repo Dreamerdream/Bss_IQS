@@ -15,26 +15,26 @@ import com.bss.iqs.entity.User;
  * @since 2017-08-25
  */
 public interface IUserService extends IService<User> {
-    public ResultBean saveUser(User user);
+     ResultBean saveUser(User user);
 
-    public ResultBean deleteUser(Integer id);
+     ResultBean deleteUser(Integer id);
 
-    public ResultBean updateUser(User user);
+     ResultBean updateUser(User user);
 
-    public User getUser(Integer id);
+     User getUser(Integer id);
 
 
    // public PageBean queryUser(String type, String keyword, Integer pageNum, Integer pageSize);
 
-    public AddUserBean getDepartmentAndUserGroup();
+     AddUserBean getDepartmentAndUserGroup();
 
-    public ActiveUser saveLoginRecord(ActiveUser user);
+     ActiveUser saveLoginRecord(ActiveUser user);
 
 
 
-    public User findUserByUsername(String username);
+     User findUserByUsername(String username);
 
-    public ResultBean addPermission(String username,String permissionStatus,String permission,String permissionName,String url,Integer groupPermissionId);
+     ResultBean addPermission(String username,String permissionStatus,String permission,String permissionName,String url,Integer groupPermissionId);
 
-    public ResultBean updatePermission(Integer userId,String permissionStatus,String permission,String permissionName,String url,Integer groupPermissionId);
+     ResultBean updatePermission(Integer userId,String permissionStatus,String permission,String permissionName,String url,Integer groupPermissionId);
 }

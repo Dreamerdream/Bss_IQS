@@ -42,7 +42,6 @@ public class IndexController {
 //    }
 
     @GetMapping("/logout")
-    @RequestMapping
     public String logout(){
 
 
@@ -80,6 +79,29 @@ public class IndexController {
 
         // 此方法不处理登录成功,由shiro进行处理.
         return "index";
+    }
+
+
+    @GetMapping("/echarts")
+    public String echarts(){
+
+        return "echarts";
+    }
+
+    @GetMapping("/echartsAsyn")
+    public String echartsAsyn(){
+
+        return "echartsAsyn";
+    }
+    @GetMapping("/echartsCycle")
+    public String echartsCycle(){
+
+        return "echartsCycle";
+    }
+    @GetMapping("/echartsIn")
+    public String echartsIn(){
+
+        return "echartsIn";
     }
 
 }

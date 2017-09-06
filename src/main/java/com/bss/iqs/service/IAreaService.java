@@ -15,5 +15,5 @@ import java.util.List;
  * @since 2017-08-26
  */
 public interface IAreaService extends IService<Area> {
-    public List<String> getCitys(Integer parentId);
+     List<String> getCitys(Integer parentId);
 }

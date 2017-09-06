@@ -2,7 +2,7 @@ package com.bss.iqs.mapper;
 
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.bss.iqs.entity.Template;
+import com.bss.iqs.entity.DataTemplate;
 
 /**
  * <p>
@@ -10,8 +10,8 @@ import com.bss.iqs.entity.Template;
  * </p>
  *
  * @author hgh
- * @since 2017-08-28
+ * @since 2017-09-06
  */
-public interface TemplateMapper extends BaseMapper<Template> {
+public interface DataTemplateMapper extends BaseMapper<DataTemplate> {
 
 }

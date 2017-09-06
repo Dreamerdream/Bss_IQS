@@ -7,11 +7,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * InnoDB free: 11264 kB
+ * 
  * </p>
  *
  * @author hgh
- * @since 2017-08-26
+ * @since 2017-09-06
  */
 public class Area extends Model<Area> {
 
@@ -20,7 +20,13 @@ public class Area extends Model<Area> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
 	private Integer parentId;
-	private String province;
+    /**
+     * 省
+     */
+	private String parentName;
+    /**
+     * 市
+     */
 	private String city;
 
 
@@ -40,12 +46,12 @@ public class Area extends Model<Area> {
 		this.parentId = parentId;
 	}
 
-	public String getProvince() {
-		return province;
+	public String getParentName() {
+		return parentName;
 	}
 
-	public void setProvince(String province) {
-		this.province = province;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
 	public String getCity() {
@@ -66,7 +72,7 @@ public class Area extends Model<Area> {
 		return "Area{" +
 			"id=" + id +
 			", parentId=" + parentId +
-			", province=" + province +
+			", parentName=" + parentName +
 			", city=" + city +
 			"}";
 	}

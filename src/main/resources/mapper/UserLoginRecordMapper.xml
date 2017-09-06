@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!--不知道行不行-->
-<mapper namespace="com.bss.iqs.dao" >
+<mapper namespace="com.bss.iqs.mapper.LoginRecordMapper" >
 
     <resultMap id="getMap" type="com.bss.iqs.entity.LoginRecord">
 
@@ -16,23 +16,23 @@
 
     </resultMap>
     
-    <select id="getUserLoginRecord" parameterType="java.util.Map" resultType="getMap" statementType="STATEMENT">
+    <select id="getUserLoginRecord" parameterType="java.util.Map" resultMap="getMap" statementType="STATEMENT">
         SELECT c.total,m.maxLTime,p.userGroupName,p.username,p.realname,p.dapartmentName,p.status FROM
         `login_record` p,
         (
-        SELECT COUNT(*) total ,${column} FROM `login_record` WHERE ${column} LIKE CONCAT('%', #{columnValue}, '%') GROUP BY ${column}
+        SELECT COUNT(*) total ,${column} FROM `login_record` WHERE ${column} LIKE '%${columnValue}%' GROUP BY ${column}
         )AS c,
         (
         SELECT MAX(loginTime) maxLTime,${column} FROM `login_record` GROUP BY ${column}
-        ) AS  m WHERE c.${column} = m.${column} AND p.`loginTime` = m.maxLTime LIMIT #{pageStart},#{pageEnd}
+        ) AS  m WHERE c.${column} = m.${column} AND p.`loginTime` = m.maxLTime
     </select>
 
 
-    <select id="getUserLoginRecord2" parameterType="java.util.Map" resultType="getMap" statementType="STATEMENT">
+    <select id="getUserLoginRecord2" parameterType="java.util.Map" resultMap="getMap" statementType="STATEMENT">
         SELECT c.total,m.maxLTime,p.userGroupName,p.username,p.realname,p.dapartmentName,p.status FROM
         `login_record` p,
         (
-        SELECT COUNT(*) total ,${column} FROM `login_record` WHERE ${column} LIKE CONCAT('%', #{columnValue}, '%') GROUP BY ${column}
+        SELECT COUNT(*) total ,${column} FROM `login_record` WHERE ${column} LIKE '%${columnValue}%' GROUP BY ${column}
         )AS c,
         (
         SELECT MAX(loginTime) maxLTime,${column} FROM `login_record` GROUP BY ${column}

@@ -1,22 +1,22 @@
 package com.bss.iqs.service.impl;
 
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.DataQueryGroup;
 import com.bss.iqs.entity.DataQuerySql;
-import com.bss.iqs.entity.Template;
+import com.bss.iqs.entity.DataTemplate;
 import com.bss.iqs.mapper.DataQueryGroupMapper;
 import com.bss.iqs.mapper.DataQuerySqlMapper;
-import com.bss.iqs.mapper.TemplateMapper;
-import com.bss.iqs.service.ITemplateService;
+import com.bss.iqs.mapper.DataTemplateMapper;
+import com.bss.iqs.service.IDataTemplateService;
 import com.bss.iqs.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -26,18 +26,17 @@ import java.util.List;
  * </p>
  *
  * @author hgh
- * @since 2017-08-28
+ * @since 2017-09-06
  */
 @Service
-public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, Template> implements ITemplateService {
-
+public class DataTemplateServiceImpl extends ServiceImpl<DataTemplateMapper, DataTemplate> implements IDataTemplateService {
     @Autowired
     private DataQueryGroupMapper dataQueryGroupMapper;
     @Autowired
     private DataQuerySqlMapper dataQuerySqlMapper;
 
     @Autowired
-    private TemplateMapper templateMapper;
+    private DataTemplateMapper dataTemplateMapper;
 
     @Override
     public List<DataQueryGroup> getDataQueryGroup() {
@@ -61,11 +60,11 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, Template> i
     }
     @Transactional
     @Override
-    public ResultBean saveTemplate(Template template) {
+    public ResultBean saveDataTemplate(DataTemplate template) {
         Date date = new Date();
         template.setCreateTime(date);
         template.setUpdateTime(date);
-        Integer insert = templateMapper.insert(template);
+        Integer insert = dataTemplateMapper.insert(template);
         if (insert != null){
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
@@ -79,21 +78,23 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, Template> i
 
     @Transactional
     @Override
-    public ResultBean updateTemplate(Template template) {
+    public ResultBean updateDataTemplate(DataTemplate template) {
         template.setUpdateTime(new Date());
-        Integer integer = templateMapper.updateById(template);
+        Integer integer = dataTemplateMapper.updateById(template);
         if (integer != null){
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("更新成功");
+            //将输入的内容转化为ftl文件
+            FileUtils.templat2ftl(template.getContent(),"");
             return result;
         }
         return null;
     }
     @Transactional
     @Override
-    public ResultBean deleteTemplate(Integer id) {
-        Integer integer = templateMapper.deleteById(id);
+    public ResultBean deleteDataTemplate(Integer id) {
+        Integer integer = dataTemplateMapper.deleteById(id);
         if (integer != null){
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
@@ -104,7 +105,8 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, Template> i
     }
 
     @Override
-    public Template findTemplateById(Integer id) {
-        return null;
+    public DataTemplate findTemplateById(Integer id) {
+        return dataTemplateMapper.selectById(id);
     }
+
 }

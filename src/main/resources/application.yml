@@ -8,9 +8,9 @@ spring:
   datasource:
     name: seimi
     type: com.alibaba.druid.pool.DruidDataSource
-    url : jdbc:mysql://localhost:3306/data_query_system
-    username: root
-    password: 123456
+    url : jdbc:mysql://192.168.0.241:3306/Bss-max?characterEncoding=utf8&useUnicode=true
+    username: bss_max
+    password: bss_max~123
     driver-class-name: com.mysql.jdbc.Driver
     filters: stat,wall,log4j
     maxActive: 20
@@ -47,9 +47,8 @@ spring:
 #    expose-session-attributes: false
 #    expose-spring-macro-helpers: false
 
-mybatis:
-
-  mapper-locations: classpath:mapper/*.xml
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
 
 server:
   port: 8081

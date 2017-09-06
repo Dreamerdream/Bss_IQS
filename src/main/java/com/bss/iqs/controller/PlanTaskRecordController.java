@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,12 +30,13 @@ public class PlanTaskRecordController {
     private IPlanTaskRecordService planTaskRecordService;
 
     @RequestMapping("/getPlanTaskRecord/{dataQueryGroupId}/{keyword}/{pageNum}/{pageSize}")
-
-    public ModelAndView getPlanTaskRecord(@PathVariable Integer dataQueryGroupId, @PathVariable String keyword, @PathVariable Integer pageNum, @PathVariable Integer pageSize){
+    @ResponseBody
+    //@RequiresPermissions("plantaskrecord:query")
+    public List<PlanTaskRecord> getPlanTaskRecord(@PathVariable Integer dataQueryGroupId, @PathVariable String keyword, @PathVariable Integer pageNum, @PathVariable Integer pageSize){
         List<PlanTaskRecord> planTaskRecords = planTaskRecordService.getPlanTaskRecord(dataQueryGroupId, keyword, pageNum, pageSize);
-        ModelAndView modelAndView = new ModelAndView("");
-        modelAndView.addObject("planTaskRecords",planTaskRecords);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("");
+//        modelAndView.addObject("planTaskRecords",planTaskRecords);
+        return planTaskRecords;
     }
 	
 }

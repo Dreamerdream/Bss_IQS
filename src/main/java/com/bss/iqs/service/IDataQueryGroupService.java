@@ -3,6 +3,7 @@ package com.bss.iqs.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.bss.iqs.bean.ResultBean;
+import com.bss.iqs.bean.UpdateDataQueryroupBean;
 import com.bss.iqs.entity.DataQueryGroup;
 import com.bss.iqs.entity.DataQueryTask;
 
@@ -18,14 +19,14 @@ import java.util.List;
  */
 public interface IDataQueryGroupService extends IService<DataQueryGroup> {
 
-    public List<DataQueryTask> findAllDataQueryTasks();
+     List<DataQueryTask> findAllDataQueryTasks();
 
-    public ResultBean savedataQueryGroup(String filePath,String dataQueryGroupName,Integer dataQueryTaskId);
+     ResultBean savedataQueryGroup(String filePath,String dataQueryGroupName,Integer dataQueryTaskId);
 
-    public ResultBean updatedataQueryGroup(DataQueryGroup dataQueryGroup);
+     ResultBean updatedataQueryGroup(DataQueryGroup dataQueryGroup);
 
-    public ResultBean deletedataQueryGroup(Integer id);
+     ResultBean deletedataQueryGroup(Integer id);
 
-    public DataQueryGroup getdataQueryGroup(Integer id);
+     UpdateDataQueryroupBean getdataQueryGroup(Integer id);
 	
 }

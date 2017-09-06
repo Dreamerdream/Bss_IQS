@@ -7,15 +7,17 @@ import com.bss.iqs.bean.AddPlanTaskBean;
 import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.DataQueryGroup;
 import com.bss.iqs.entity.DataQueryTask;
+import com.bss.iqs.entity.DataTemplate;
 import com.bss.iqs.entity.PlanTask;
-import com.bss.iqs.entity.Template;
+
 import com.bss.iqs.mapper.DataQueryGroupMapper;
 import com.bss.iqs.mapper.DataQueryTaskMapper;
+import com.bss.iqs.mapper.DataTemplateMapper;
 import com.bss.iqs.mapper.PlanTaskMapper;
-import com.bss.iqs.mapper.TemplateMapper;
 import com.bss.iqs.service.IPlanTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,8 +44,9 @@ public class PlanTaskServiceImpl extends ServiceImpl<PlanTaskMapper, PlanTask> i
     private DataQueryTaskMapper dataQueryTaskMapper;
 
     @Autowired
-    private TemplateMapper templateMapper;
+    private DataTemplateMapper dataTemplateMapper;
 
+    @Transactional
     @Override
     public ResultBean savePlanTask(PlanTask planTask) {
         Date date = new Date();
@@ -59,6 +62,7 @@ public class PlanTaskServiceImpl extends ServiceImpl<PlanTaskMapper, PlanTask> i
         return null;
     }
 
+    @Transactional
     @Override
     public ResultBean deletePlanTask(Integer id) {
         Integer integer = planTaskMapper.deleteById(id);
@@ -71,6 +75,7 @@ public class PlanTaskServiceImpl extends ServiceImpl<PlanTaskMapper, PlanTask> i
         return null;
     }
 
+    @Transactional
     @Override
     public ResultBean updatePlanTask(PlanTask planTask) {
         planTask.setUpdateTime(new Date());
@@ -111,7 +116,7 @@ public class PlanTaskServiceImpl extends ServiceImpl<PlanTaskMapper, PlanTask> i
             for (int i = 0; i < dataQueryTasks.size() ; i++) {
                 DataQueryTask dataQueryTask = dataQueryTasks.get(i);
                 AddPlanTaskBean addPlanTaskBean = new AddPlanTaskBean();
-                Template template = templateMapper.selectById(dataQueryTask.getTemplateId());
+                DataTemplate template = dataTemplateMapper.selectById(dataQueryTask.getTemplateId());
                 addPlanTaskBean.setTemplateName(template.getName());
                 addPlanTaskBean.setAddress(dataQueryTask.getProvince()+","+dataQueryTask.getCity());
                 addPlanTaskBean.setDataQueryTaskId(dataQueryTask.getId());

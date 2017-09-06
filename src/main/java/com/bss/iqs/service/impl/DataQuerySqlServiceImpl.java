@@ -12,6 +12,7 @@ import com.bss.iqs.mapper.DataQuerySqlMapper;
 import com.bss.iqs.service.IDataQuerySqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,9 @@ public class DataQuerySqlServiceImpl extends ServiceImpl<DataQuerySqlMapper, Dat
 
     @Autowired
     private DataQueryGroupMapper dataQueryGroupMapper;
+
+
+    @Transactional
     @Override
     public ResultBean saveDataQuerySql(DataQuerySql sql) {
         Date date = new Date();
@@ -47,6 +51,7 @@ public class DataQuerySqlServiceImpl extends ServiceImpl<DataQuerySqlMapper, Dat
         return null;
     }
 
+    @Transactional
     @Override
     public ResultBean deleteDataQuerySql(Integer id) {
         Integer integer = dataQuerySqlMapper.deleteById(id);
@@ -60,6 +65,7 @@ public class DataQuerySqlServiceImpl extends ServiceImpl<DataQuerySqlMapper, Dat
 
     }
 
+    @Transactional
     @Override
     public ResultBean updateDataQuerySql(DataQuerySql sql) {
         sql.setUpdateTime(new Date());

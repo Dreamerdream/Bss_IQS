@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.bss.iqs.entity.PlanTaskRecord;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,13 @@ import java.util.Map;
  * @since 2017-09-04
  */
 public interface PlanTaskRecordMapper extends BaseMapper<PlanTaskRecord> {
+
+
     public List<PlanTaskRecord> getPlanTaskRecord(Pagination pagination,@Param("dataQueryGroupId") Integer dataQueryGroupId, @Param("planTaskName") String planTaskName);
 
 
     public List<PlanTaskRecord> getPlanTaskRecord2(@Param("dataQueryGroupId") Integer dataQueryGroupId, @Param("planTaskName") String planTaskName,@Param("pageStart") Integer pageStart,@Param("pageEnd") Integer pageEnd);
+
+
+    public PlanTaskRecord findById(Integer id);
 }

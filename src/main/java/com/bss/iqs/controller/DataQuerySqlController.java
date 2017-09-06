@@ -34,6 +34,8 @@ public class DataQuerySqlController {
 
 
     @GetMapping("/save")
+    @ResponseBody
+    //@RequiresPermissions("dataquerysql:add")
     public ResultBean saveDataQuerySql(DataQuerySql dataQuerySql){
         ResultBean resultBean = dataQuerySqlService.saveDataQuerySql(dataQuerySql);
         return resultBean;
@@ -41,6 +43,7 @@ public class DataQuerySqlController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
+    //@RequiresPermissions("dataquerysql:delete")
     public ResultBean deleteDataQuerySql(@PathVariable Integer id){
         System.out.println("111111");
         ResultBean resultBean = dataQuerySqlService.deleteDataQuerySql(id);
@@ -49,6 +52,7 @@ public class DataQuerySqlController {
 
     @GetMapping("/update")
     @ResponseBody
+    //@RequiresPermissions("dataquerysql:update")
     public ResultBean updateDataQuerySql(DataQuerySql dataQuerySql){
         ResultBean resultBean = dataQuerySqlService.updateDataQuerySql(dataQuerySql);
         return resultBean;
@@ -56,6 +60,7 @@ public class DataQuerySqlController {
 
 
     @RequestMapping("/get/{id}")
+    //@RequiresPermissions("dataquerysql:update")
     public ModelAndView findDataQuerySqlById(@PathVariable Integer id){
         DataQuerySql dataQuerySql = dataQuerySqlService.findDataQuerySqlById(id);
         ModelAndView modelAndView = new ModelAndView("update");
@@ -64,6 +69,7 @@ public class DataQuerySqlController {
     }
 
     @RequestMapping("/getDataQueryGroup")
+    //@RequiresPermissions("dataquerysql:add")
     public ModelAndView getDataQueryGroup(){
         List<DataQueryGroup> dataQueryGroups = dataQuerySqlService.findAllDataQueryGroup();
         ModelAndView modelAndView = new ModelAndView("");
@@ -72,11 +78,12 @@ public class DataQuerySqlController {
     }
 
     @RequestMapping("/query/{type}/{keyword}/")
-    public ModelAndView queryDataQuerySql(@PathVariable Integer dataQueryGroupId,@PathVariable String keyword){
+    //@RequiresPermissions("dataquerysql:query")
+    public List<DataQuerySql> queryDataQuerySql(@PathVariable Integer dataQueryGroupId,@PathVariable String keyword){
         List<DataQuerySql> dataQuerySqls = dataQuerySqlService.queryDataQuerySql(dataQueryGroupId, keyword);
-        ModelAndView modelAndView = new ModelAndView("updateUser");
-        modelAndView.addObject("user",dataQuerySqls);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("updateUser");
+//        modelAndView.addObject("user",dataQuerySqls);
+        return  dataQuerySqls;
 
     }
 	

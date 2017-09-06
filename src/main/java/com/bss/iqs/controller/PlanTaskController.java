@@ -37,6 +37,7 @@ public class PlanTaskController {
 
     @GetMapping("/save")
     @ResponseBody
+    //@RequiresPermissions("plantask:add")
     public ResultBean saveRDS(PlanTask planTask){
         ResultBean resultBean = planTaskService.savePlanTask(planTask);
         return resultBean;
@@ -44,6 +45,7 @@ public class PlanTaskController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
+    //@RequiresPermissions("plantask:delete")
     public ResultBean deletePlanTask(@PathVariable Integer id){
         System.out.println("111111");
         ResultBean resultBean = planTaskService.deletePlanTask(id);
@@ -52,6 +54,7 @@ public class PlanTaskController {
 
     @GetMapping("/update")
     @ResponseBody
+    //@RequiresPermissions("plantask:update")
     public ResultBean updatePlanTask(PlanTask planTask){
         ResultBean resultBean = planTaskService.updatePlanTask(planTask);
         return resultBean;
@@ -59,6 +62,7 @@ public class PlanTaskController {
 
 
     @GetMapping("/get/{id}")
+    //@RequiresPermissions("plantask:update")
     public ModelAndView findPlanTaskById(@PathVariable Integer id){
         PlanTask planTask = planTaskService.findPlanTaskById(id);
         ModelAndView modelAndView = new ModelAndView("updatePlanTask");
@@ -76,25 +80,34 @@ public class PlanTaskController {
 //    }
 
     @GetMapping("/findAllDataQueryGroup")
-    public ModelAndView findAllDataQueryGroup(){
+    //@RequiresPermissions("plantask:add")
+    public List<DataQueryGroup> findAllDataQueryGroup(){
         List<DataQueryGroup> dataQueryGroup = planTaskService.findAllDataQueryGroup();
-        ModelAndView modelAndView = new ModelAndView("");
-        modelAndView.addObject("dataQueryGroup",dataQueryGroup);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("");
+//        modelAndView.addObject("dataQueryGroup",dataQueryGroup);
+        return dataQueryGroup;
     }
 
+
+    //用于添加
     @GetMapping("/getDataQueryTask/{dataQueryGroupId}")
-    public ModelAndView findDataQueryTaskByDqgId(@PathVariable Integer dataQueryGroupId){
+    //@RequiresPermissions("plantask:add")
+    @ResponseBody
+    public List<AddPlanTaskBean> findDataQueryTaskByDqgId(@PathVariable Integer dataQueryGroupId){
         List<AddPlanTaskBean> addPlanTaskBeans = planTaskService.findDataQueryTaskByDqgId(dataQueryGroupId);
-        ModelAndView modelAndView = new ModelAndView("");
-        modelAndView.addObject("addPlanTaskBeans",addPlanTaskBeans);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("");
+//        modelAndView.addObject("addPlanTaskBeans",addPlanTaskBeans);
+        return addPlanTaskBeans;
     }
 
+
+    //查询
     @GetMapping("/getPlanTask/{dataQueryGroupId}/{type}")
-    public ModelAndView findPlanTaskByDqgId(@PathVariable Integer dataQueryGroupId,@PathVariable String name){
-        planTaskService.findPlanTaskByDqgId(dataQueryGroupId,name);
-        return null;
+    @ResponseBody
+    //@RequiresPermissions("plantask:query")
+    public  List<PlanTask> findPlanTaskByDqgId(@PathVariable Integer dataQueryGroupId,@PathVariable String name){
+        List<PlanTask> planTaskByDqgId = planTaskService.findPlanTaskByDqgId(dataQueryGroupId, name);
+        return planTaskByDqgId;
     }
 
 

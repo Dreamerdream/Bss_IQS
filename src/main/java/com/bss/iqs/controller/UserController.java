@@ -8,6 +8,7 @@ import com.bss.iqs.bean.ResultBean;
 
 import com.bss.iqs.entity.User;
 import com.bss.iqs.service.IUserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +31,16 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/save")
+    @ResponseBody
+    //@RequiresPermissions("user:add")
     public ResultBean saveUser(User user){
         ResultBean resultBean = userService.saveUser(user);
         return resultBean;
     }
 
     @GetMapping("/delete/{id}")
+    @ResponseBody
+    //@RequiresPermissions("user:delete")
     public ResultBean deleteUser(@PathVariable Integer id){
         System.out.println("111111");
         ResultBean resultBean = userService.deleteUser(id);
@@ -44,6 +49,8 @@ public class UserController {
     }
 
     @PostMapping("/update")
+    @ResponseBody
+    //@RequiresPermissions("user:update")
     public ResultBean updateUser(User user){
         ResultBean resultBean = userService.updateUser(user);
         return resultBean;
@@ -51,6 +58,7 @@ public class UserController {
 
 
     @GetMapping("/get/{id}")
+    //@RequiresPermissions("user:update")
     public ModelAndView getUser(@PathVariable Integer id){
         User user = userService.getUser(id);
         ModelAndView modelAndView = new ModelAndView("update");
@@ -68,6 +76,7 @@ public class UserController {
 //    }
 
     @GetMapping("/getDepartmentAndUserGroup")
+    //@RequiresPermissions("user:add")
     public ModelAndView getDepartmentAndUserGroup(){
         AddUserBean departmentAndUserGroup = userService.getDepartmentAndUserGroup();
         ModelAndView modelAndView = new ModelAndView("addUser");
@@ -77,7 +86,9 @@ public class UserController {
 
 
 
+    //没用了
     @GetMapping("/queryAll")
+    //@RequiresPermissions("user:query")
     public ModelAndView queryAll(){
      //   List<QueryUserLoginRecordBean> queryUserLoginRecordBeans = userService.queryAll();
         ModelAndView modelAndView = new ModelAndView("");
@@ -85,6 +96,7 @@ public class UserController {
     }
 
     @RequestMapping("addPermission/{username}/{permissionStatus}/{permission}/{permissionName}/{url}/{groupPermissionId}")
+    //@RequiresPermissions("userpermission:add")
     public ModelAndView addPermission(@PathVariable String username,@PathVariable String permissionStatus,@PathVariable String permission,@PathVariable String permissionName,@PathVariable String url,@PathVariable Integer groupPermissionId){
         userService.addPermission(username,permissionStatus,permission,permissionName,url,groupPermissionId);
         ModelAndView modelAndView = new ModelAndView("");
@@ -112,13 +124,11 @@ public class UserController {
 
 
     @RequestMapping("updatePermission/{userId}/{permissionStatus}/{permission}/{permissionName}/{url}/{groupPermissionId}")
+    //@RequiresPermissions("userpermission:update")
     public void updatePermission(@PathVariable Integer userId,@PathVariable String permissionStatus,@PathVariable String permission,@PathVariable String permissionName,@PathVariable String url,@PathVariable Integer groupPermissionId ){
         userService.updatePermission(userId,permissionStatus,permission,permissionName,url,groupPermissionId);
     }
 
 
-//    @RequestMapping("/success")
-//    public String success(){
-//        return "success";
-//    }
+
 }

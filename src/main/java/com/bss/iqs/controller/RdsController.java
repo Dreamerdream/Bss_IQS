@@ -33,6 +33,7 @@ public class RdsController {
 
     @GetMapping("/save")
     @ResponseBody
+    //@RequiresPermissions("rds:add")
     public ResultBean saveRDS(Rds rds){
         ResultBean resultBean = rdsService.saveRDS(rds);
         return resultBean;
@@ -40,6 +41,7 @@ public class RdsController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
+    //@RequiresPermissions("rds:delete")
     public ResultBean deleteRDS(@PathVariable Integer id){
         System.out.println("111111");
         ResultBean resultBean = rdsService.deleteRDS(id);
@@ -48,6 +50,7 @@ public class RdsController {
 
     @GetMapping("/update")
     @ResponseBody
+    //@RequiresPermissions("rds:update")
     public ResultBean updateRDS(Rds rds){
         ResultBean resultBean = rdsService.updateRDS(rds);
         return resultBean;
@@ -55,6 +58,7 @@ public class RdsController {
 
 
     @GetMapping("/get/{id}")
+    //@RequiresPermissions("rds:update")
     public ModelAndView getRDS(@PathVariable Integer id){
         Rds rds = rdsService.getRDS(id);
         ModelAndView modelAndView = new ModelAndView("updateRDS");
@@ -62,12 +66,14 @@ public class RdsController {
         return  modelAndView;
     }
 
-    @GetMapping("/query/{groupId}/{keyword}/{pageNum}/{pageSize}")
-    public ModelAndView queryRDS(@PathVariable Integer groupId,@PathVariable String keyword,@PathVariable Integer pageNum,@PathVariable Integer pageSize){
-        List<Rds> rds = rdsService.queryRDS(groupId, keyword,pageNum,pageSize);
-        ModelAndView modelAndView = new ModelAndView("update");
-        modelAndView.addObject("sql",pageSize);
-        return modelAndView;
+    @GetMapping("/queryAll")
+    @ResponseBody
+    //@RequiresPermissions("rds:query")
+    public List<Rds> queryRDS(){
+        List<Rds> rds = rdsService.queryAllRDS();
+//        ModelAndView modelAndView = new ModelAndView("update");
+//        modelAndView.addObject("rds",rds);
+        return rds;
 
     }
 

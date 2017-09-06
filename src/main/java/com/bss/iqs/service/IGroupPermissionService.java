@@ -17,17 +17,17 @@ import java.util.List;
  * @since 2017-08-28
  */
 public interface IGroupPermissionService extends IService<GroupPermission> {
-    public ResultBean saveGroupPermission(GroupPermission groupPermission);
+     ResultBean saveGroupPermission(GroupPermission groupPermission);
 
-    public ResultBean updateGroupPermission(GroupPermission groupPermission);
-
-
-    public GroupPermission findGroupPermissionById(Integer id);
+     ResultBean updateGroupPermission(GroupPermission groupPermission);
 
 
-    public ResultBean deleteGroupPermission(Integer id);
+     GroupPermission findGroupPermissionById(Integer id);
 
-    public AddGroupPermissionBean getPermissionAndGroup();
 
-    public List<GroupPermission> findGroupPermissionByUsername(String username);
+     ResultBean deleteGroupPermission(Integer id);
+
+     AddGroupPermissionBean getPermissionAndGroup();
+
+     List<GroupPermission> findGroupPermissionByUsername(String username);
 }

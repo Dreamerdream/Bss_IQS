@@ -6,6 +6,7 @@ import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.DataQueryTask;
 import com.bss.iqs.service.IDataQueryTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,10 @@ import java.util.List;
 public class DataQueryTaskController {
     @Autowired
     private IDataQueryTaskService queryTaskService;
+
     @GetMapping("/save")
+    @ResponseBody
+    //@RequiresPermissions("dataquerytask:add")
     public ResultBean saveDataQueryTask(DataQueryTask dataQueryTask){
         ResultBean resultBean = queryTaskService.saveDataQueryTask(dataQueryTask);
         return resultBean;
@@ -37,6 +41,7 @@ public class DataQueryTaskController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
+    //@RequiresPermissions("dataquerytask:delete")
     public ResultBean deleteDataQueryTask(@PathVariable Integer id){
         System.out.println("111111");
         ResultBean resultBean = queryTaskService.deleteDataQueryTask(id);
@@ -45,6 +50,7 @@ public class DataQueryTaskController {
 
     @GetMapping("/update")
     @ResponseBody
+    //@RequiresPermissions("dataquerytask:update")
     public ResultBean updateDataQueryTask(DataQueryTask dataQueryTask){
         ResultBean resultBean = queryTaskService.updateDataQueryTask(dataQueryTask);
         return resultBean;
@@ -52,6 +58,7 @@ public class DataQueryTaskController {
 
 
     @RequestMapping("/get/{id}")
+    //@RequiresPermissions("dataquerytask:update")
     public ModelAndView getDataQueryTask(@PathVariable Integer id){
         DataQueryTask dataQueryTask = queryTaskService.findDataQueryTaskById(id);
         ModelAndView modelAndView = new ModelAndView("update");
@@ -61,6 +68,7 @@ public class DataQueryTaskController {
 
 
     @RequestMapping("/query/{type}/{keyword}")
+    //@RequiresPermissions("dataquerytask:query")
     public ModelAndView queryDataQueryTask(@PathVariable Integer type,@PathVariable String keyword){
         List<DataQueryTask> dataQueryTasks = queryTaskService.queryDataQueryTask(type, keyword);
         ModelAndView modelAndView = new ModelAndView("updateUser");

@@ -15,11 +15,11 @@ import com.bss.iqs.entity.UserGroup;
  */
 public interface IUserGroupService extends IService<UserGroup> {
 
-    public ResultBean saveUserGroup(UserGroup userGroup);
+     ResultBean saveUserGroup(UserGroup userGroup);
 
-    public ResultBean deleteUserGroup(Integer id);
+     ResultBean deleteUserGroup(Integer id);
 
-    public ResultBean updateUserGroup(UserGroup userGroup);
+     ResultBean updateUserGroup(UserGroup userGroup);
 
-    public UserGroup getUserGroup(Integer id);
+     UserGroup getUserGroup(Integer id);
 }

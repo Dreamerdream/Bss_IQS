@@ -16,13 +16,13 @@ import java.util.List;
  * @since 2017-08-25
  */
 public interface IRdsService extends IService<Rds> {
-    public ResultBean saveRDS(Rds rds);
+     ResultBean saveRDS(Rds rds);
 
-    public ResultBean deleteRDS(Integer id);
+     ResultBean deleteRDS(Integer id);
 
-    public ResultBean updateRDS(Rds rds);
+     ResultBean updateRDS(Rds rds);
 
-    public Rds getRDS(Integer id);
+     Rds getRDS(Integer id);
 
-    public List<Rds> queryRDS(Integer groupId, String keyword, Integer pageNum, Integer pageSize);
+     List<Rds> queryAllRDS();
 }

@@ -8,6 +8,7 @@ import com.bss.iqs.mapper.UserGroupMapper;
 import com.bss.iqs.service.IUserGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -24,6 +25,7 @@ public class UserGroupServiceImpl extends ServiceImpl<UserGroupMapper, UserGroup
     @Autowired
     private UserGroupMapper userGroupMapper;
 
+    @Transactional
     @Override
     public ResultBean saveUserGroup(UserGroup userGroup) {
         Date date = new Date();
@@ -39,6 +41,7 @@ public class UserGroupServiceImpl extends ServiceImpl<UserGroupMapper, UserGroup
         return null;
     }
 
+    @Transactional
     @Override
     public ResultBean deleteUserGroup(Integer id) {
         Integer integer = userGroupMapper.deleteById(id);
@@ -51,6 +54,7 @@ public class UserGroupServiceImpl extends ServiceImpl<UserGroupMapper, UserGroup
         return null;
     }
 
+    @Transactional
     @Override
     public ResultBean updateUserGroup(UserGroup userGroup) {
         userGroup.setUpdateTime(new Date());

@@ -21,20 +21,20 @@ import java.util.List;
  */
 public interface IPlanTaskService extends IService<PlanTask> {
 
-    public ResultBean savePlanTask(PlanTask planTask);
+     ResultBean savePlanTask(PlanTask planTask);
 
-    public ResultBean deletePlanTask(Integer id);
-
-
-    public ResultBean updatePlanTask(PlanTask planTask);
+     ResultBean deletePlanTask(Integer id);
 
 
-    public PlanTask findPlanTaskById(Integer id);
+     ResultBean updatePlanTask(PlanTask planTask);
 
-    public List<DataQueryGroup> findAllDataQueryGroup();
 
-    public List<AddPlanTaskBean> findDataQueryTaskByDqgId(Integer dataQueryGroupId);
+     PlanTask findPlanTaskById(Integer id);
 
-    public List<PlanTask> findPlanTaskByDqgId(Integer dataQueryGroupId, String name);
+     List<DataQueryGroup> findAllDataQueryGroup();
+
+     List<AddPlanTaskBean> findDataQueryTaskByDqgId(Integer dataQueryGroupId);
+
+     List<PlanTask> findPlanTaskByDqgId(Integer dataQueryGroupId, String name);
 	
 }

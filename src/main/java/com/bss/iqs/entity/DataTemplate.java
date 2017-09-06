@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
 /**
@@ -12,9 +13,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author hgh
- * @since 2017-09-04
+ * @since 2017-09-06
  */
-public class Template extends Model<Template> {
+@TableName("data_template")
+public class DataTemplate extends Model<DataTemplate> {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,12 +29,29 @@ public class Template extends Model<Template> {
      * 模板任务
      */
 	private String name;
+    /**
+     * 模板内容
+     */
 	private String content;
-	private String timeLimit;
-	private Integer sqlId;
-	private Integer groupId;
+    /**
+     * sql语句
+     */
+	private String sqlId;
+    /**
+     * 数据查询任务分组
+     */
+	private Integer dataQueryGroupId;
+    /**
+     * 输出格式
+     */
 	private String outputFormat;
+    /**
+     * 添加时间
+     */
 	private Date createTime;
+    /**
+     * 更新时间
+     */
 	private Date updateTime;
 
 
@@ -60,28 +79,20 @@ public class Template extends Model<Template> {
 		this.content = content;
 	}
 
-	public String getTimeLimit() {
-		return timeLimit;
-	}
-
-	public void setTimeLimit(String timeLimit) {
-		this.timeLimit = timeLimit;
-	}
-
-	public Integer getSqlId() {
+	public String getSqlId() {
 		return sqlId;
 	}
 
-	public void setSqlId(Integer sqlId) {
+	public void setSqlId(String sqlId) {
 		this.sqlId = sqlId;
 	}
 
-	public Integer getGroupId() {
-		return groupId;
+	public Integer getDataQueryGroupId() {
+		return dataQueryGroupId;
 	}
 
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
+	public void setDataQueryGroupId(Integer dataQueryGroupId) {
+		this.dataQueryGroupId = dataQueryGroupId;
 	}
 
 	public String getOutputFormat() {
@@ -115,13 +126,12 @@ public class Template extends Model<Template> {
 
 	@Override
 	public String toString() {
-		return "Template{" +
+		return "DataTemplate{" +
 			"id=" + id +
 			", name=" + name +
 			", content=" + content +
-			", timeLimit=" + timeLimit +
 			", sqlId=" + sqlId +
-			", groupId=" + groupId +
+			", dataQueryGroupId=" + dataQueryGroupId +
 			", outputFormat=" + outputFormat +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +

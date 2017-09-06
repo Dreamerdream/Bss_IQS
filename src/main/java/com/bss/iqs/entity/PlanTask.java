@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author hgh
- * @since 2017-09-01
+ * @since 2017-09-06
  */
 @TableName("plan_task")
 public class PlanTask extends Model<PlanTask> {
@@ -32,11 +32,11 @@ public class PlanTask extends Model<PlanTask> {
     /**
      * 分组任务id
      */
-	private Integer groupId;
+	private Integer dataQueryGroupId;
     /**
      * 数据查询任务id
      */
-	private Integer dataQueryTaskId;
+	private String dataQueryTaskId;
     /**
      * 内容开始时间
      */
@@ -93,19 +93,19 @@ public class PlanTask extends Model<PlanTask> {
 		this.name = name;
 	}
 
-	public Integer getGroupId() {
-		return groupId;
+	public Integer getDataQueryGroupId() {
+		return dataQueryGroupId;
 	}
 
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
+	public void setDataQueryGroupId(Integer dataQueryGroupId) {
+		this.dataQueryGroupId = dataQueryGroupId;
 	}
 
-	public Integer getDataQueryTaskId() {
+	public String getDataQueryTaskId() {
 		return dataQueryTaskId;
 	}
 
-	public void setDataQueryTaskId(Integer dataQueryTaskId) {
+	public void setDataQueryTaskId(String dataQueryTaskId) {
 		this.dataQueryTaskId = dataQueryTaskId;
 	}
 
@@ -207,7 +207,7 @@ public class PlanTask extends Model<PlanTask> {
 		return "PlanTask{" +
 			"id=" + id +
 			", name=" + name +
-			", groupId=" + groupId +
+			", dataQueryGroupId=" + dataQueryGroupId +
 			", dataQueryTaskId=" + dataQueryTaskId +
 			", beginTime=" + beginTime +
 			", cycleStatus=" + cycleStatus +

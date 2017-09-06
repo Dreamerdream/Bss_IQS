@@ -15,5 +15,5 @@ import java.util.List;
  * @since 2017-08-29
  */
 public interface ILoginRecordService extends IService<LoginRecord> {
-    public List<LoginRecord> getUserLoginRecord(String type, String keyword, Integer pageNum, Integer pageSize);
+     List<LoginRecord> getUserLoginRecord(String type, String keyword, Integer pageNum, Integer pageSize);
 }

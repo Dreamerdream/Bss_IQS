@@ -29,12 +29,16 @@ public class PlanTaskRecordServiceImpl extends ServiceImpl<PlanTaskRecordMapper,
 
     @Autowired
     private PlanTaskRecordMapper planTaskRecordMapper;
+
+    @Autowired
+    private PlanTaskRecordDao planTaskRecordDao;
     @Override
     public List<PlanTaskRecord> getPlanTaskRecord(Integer dataQueryGroupId, String keyword, Integer pageNum, Integer pageSize) {
         int pageStart = 0;
         if (pageNum != null && pageSize != null ){
             pageStart = (pageNum - 1) * pageSize;
         }
+
         List<PlanTaskRecord> planTaskRecords = planTaskRecordMapper.getPlanTaskRecord(new Pagination(pageStart,pageSize),dataQueryGroupId, keyword);
         if (planTaskRecords != null && planTaskRecords.size() != 0){
             return planTaskRecords;

@@ -1,6 +1,7 @@
 package com.bss.iqs.mapper;
 
 
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.bss.iqs.entity.Area;
 

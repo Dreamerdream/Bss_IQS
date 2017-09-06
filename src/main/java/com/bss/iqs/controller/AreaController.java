@@ -29,11 +29,12 @@ public class AreaController {
 
     @RequestMapping("/getcitys/{parentId}")
     @ResponseBody
-    public ModelAndView getCitys(@PathVariable Integer parentId){
-        ModelAndView modelAndView = new ModelAndView("");
+    public List<String> getCitys(@PathVariable Integer parentId){
+
         List<String> citys = areaService.getCitys(parentId);
-        modelAndView.addObject("citys",citys);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("");
+//        modelAndView.addObject("citys",citys);
+        return citys;
     }
 	
 }

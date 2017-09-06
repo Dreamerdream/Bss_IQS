@@ -50,7 +50,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             GroupPermission groupPermission = groupPermissionService.selectById(user.getGroupPermissionId());
             String permission = groupPermission.getPermission();
             //将string转化为List
-            String[] split = permission.split(";");
+            String[] split = permission.split(",");
             permissions = Arrays.asList(split);
         }
 

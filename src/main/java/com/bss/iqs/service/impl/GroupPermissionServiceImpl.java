@@ -17,6 +17,7 @@ import com.bss.iqs.mapper.UserMapper;
 import com.bss.iqs.service.IGroupPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -41,6 +42,7 @@ public class GroupPermissionServiceImpl extends ServiceImpl<GroupPermissionMappe
     @Autowired
     private UserMapper userMapper;
 
+    @Transactional
     @Override
     public ResultBean saveGroupPermission(GroupPermission groupPermission) {
         //这里也有问题，可能上传上来的人有多个，应该是个数组，权限也有多个，是数组
@@ -72,7 +74,9 @@ public class GroupPermissionServiceImpl extends ServiceImpl<GroupPermissionMappe
         return null;
     }
 
+
     //这里还要写
+    @Transactional
     @Override
     public ResultBean updateGroupPermission(GroupPermission groupPermission) {
         groupPermission.setUpdateTime(new Date());
@@ -91,6 +95,7 @@ public class GroupPermissionServiceImpl extends ServiceImpl<GroupPermissionMappe
         return groupPermissionMapper.selectById(id);
     }
 
+    @Transactional
     @Override
     public ResultBean deleteGroupPermission(Integer id) {
         Integer integer = groupPermissionMapper.deleteById(id);

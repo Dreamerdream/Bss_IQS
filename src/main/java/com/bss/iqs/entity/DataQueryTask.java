@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author hgh
- * @since 2017-09-01
+ * @since 2017-09-06
  */
 @TableName("data_query_task")
 public class DataQueryTask extends Model<DataQueryTask> {
@@ -56,6 +56,10 @@ public class DataQueryTask extends Model<DataQueryTask> {
 	private Integer rdsId;
 	private Date createTime;
 	private Date updateTime;
+    /**
+     * 是否有组选择了，默认0：没有 1：有
+     */
+	private String status;
 
 
 	public Integer getId() {
@@ -146,6 +150,14 @@ public class DataQueryTask extends Model<DataQueryTask> {
 		this.updateTime = updateTime;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -165,6 +177,7 @@ public class DataQueryTask extends Model<DataQueryTask> {
 			", rdsId=" + rdsId +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
+			", status=" + status +
 			"}";
 	}
 }

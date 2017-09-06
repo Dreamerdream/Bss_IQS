@@ -18,18 +18,18 @@ import java.util.List;
  */
 public interface IDataQueryTaskService extends IService<DataQueryTask> {
 
-    public ResultBean saveDataQueryTask(DataQueryTask dataQueryTask);
+     ResultBean saveDataQueryTask(DataQueryTask dataQueryTask);
 
-    public ResultBean deleteDataQueryTask(Integer id);
+     ResultBean deleteDataQueryTask(Integer id);
 
-    public ResultBean updateDataQueryTask(DataQueryTask dataQueryTask);
+     ResultBean updateDataQueryTask(DataQueryTask dataQueryTask);
 
-    public DataQueryTask findDataQueryTaskById(Integer id);
+     DataQueryTask findDataQueryTaskById(Integer id);
 
-    public List<DataQueryTask> queryDataQueryTask(Integer type, String keyword);
+     List<DataQueryTask> queryDataQueryTask(Integer type, String keyword);
 
-    public AddDataQueryTaskBean getTemplateAndAddress();
+     AddDataQueryTaskBean getTemplateAndAddress();
 
-    public List<DataQueryTask> queryAll();
+     List<DataQueryTask> queryAll();
 	
 }

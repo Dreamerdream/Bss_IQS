@@ -17,15 +17,15 @@ import java.util.List;
  * @since 2017-08-25
  */
 public interface IDataQuerySqlService extends IService<DataQuerySql> {
-    public ResultBean saveDataQuerySql(DataQuerySql sql);
+     ResultBean saveDataQuerySql(DataQuerySql sql);
 
-    public ResultBean deleteDataQuerySql(Integer id);
+     ResultBean deleteDataQuerySql(Integer id);
 
-    public ResultBean updateDataQuerySql(DataQuerySql sql);
+     ResultBean updateDataQuerySql(DataQuerySql sql);
 
-    public DataQuerySql findDataQuerySqlById(Integer id);
+     DataQuerySql findDataQuerySqlById(Integer id);
 
-    public List<DataQueryGroup> findAllDataQueryGroup();
+     List<DataQueryGroup> findAllDataQueryGroup();
 
-    public List<DataQuerySql> queryDataQuerySql(Integer dataQueryGroupId, String keyword);
+     List<DataQuerySql> queryDataQuerySql(Integer dataQueryGroupId, String keyword);
 }

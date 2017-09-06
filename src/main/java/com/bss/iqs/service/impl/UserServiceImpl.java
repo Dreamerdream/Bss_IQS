@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private DataQueryTaskMapper dataQueryTaskMapper;
 
     @Autowired
-    private TemplateMapper templateMapper;
+    private DataTemplateMapper dataTemplateMapper;
 
     @Autowired
     private PlanTaskMapper planTaskMapper;
@@ -97,6 +97,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return null;
     }
 
+    @Transactional
     @Override
     public ResultBean updateUser(User user) {
         user.setUpdateTime(new Date());
@@ -188,8 +189,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //还需要将个数显示出来
         Wrapper<DataQueryTask> dataQueryTaskwrapper = new EntityWrapper<>();
         Integer dataQueryTaskCount = dataQueryTaskMapper.selectCount(dataQueryTaskwrapper);
-        Wrapper<Template> templateWrapper = new EntityWrapper<>();
-        Integer templateCount = templateMapper.selectCount(templateWrapper);
+        Wrapper<DataTemplate> templateWrapper = new EntityWrapper<>();
+        Integer templateCount = dataTemplateMapper.selectCount(templateWrapper);
         Wrapper<PlanTask> planTaskWrapper = new EntityWrapper<>();
         Integer planTaskCount = planTaskMapper.selectCount(planTaskWrapper);
         Wrapper<DataQuerySql> dataQuerySqlWrapper = new EntityWrapper<>();

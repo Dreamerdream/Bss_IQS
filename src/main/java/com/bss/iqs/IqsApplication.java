@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan("com.bss.iqs.mapper*")
+@MapperScan("com.bss.iqs.mapper")
 public class IqsApplication {
 
 	public static void main(String[] args) {

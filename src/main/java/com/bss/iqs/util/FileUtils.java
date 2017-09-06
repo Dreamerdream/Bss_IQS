@@ -21,9 +21,9 @@ public class FileUtils {
         try {
             //文件名
             String fileName = file.getOriginalFilename();
+            // 文件上传后的路径
             filePath = path + File.separator + fileName;
             InputStream inputStream = file.getInputStream();
-            // 文件上传后的路径
             os = new FileOutputStream( filePath);
             byte[] bs = new byte[1024];
             int len;
