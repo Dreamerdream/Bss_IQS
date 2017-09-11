@@ -59,12 +59,13 @@ public class UserGroupController {
 
 
     @RequestMapping("/get/{id}")
+    @ResponseBody
     //@RequiresPermissions("usergroup:update")
-    public ModelAndView getUserGroup(@PathVariable Integer id){
+    public UserGroup getUserGroup(@PathVariable Integer id){
         UserGroup userGroup = userGroupService.getUserGroup(id);
-        ModelAndView modelAndView = new ModelAndView("update");
-        modelAndView.addObject("userGroup",userGroup);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("update");
+//        modelAndView.addObject("userGroup",userGroup);
+        return  userGroup;
     }
 	
 }

@@ -28,6 +28,7 @@ public class GroupPermissionController {
 
     @PostMapping(value = "/save")
     //@RequiresPermissions("grouppermission:add")
+    @ResponseBody
     public ResultBean saveGroupPermission(GroupPermission groupPermission){
         ResultBean resultBean = groupPermissionService.saveGroupPermission(groupPermission);
         return resultBean;
@@ -35,6 +36,7 @@ public class GroupPermissionController {
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     //@RequiresPermissions("grouppermission:update")
+    @ResponseBody
     public ResultBean updateGroupPermission(GroupPermission groupPermission){
         ResultBean resultBean = groupPermissionService.updateGroupPermission(groupPermission);
         return resultBean;
@@ -44,13 +46,15 @@ public class GroupPermissionController {
 
     @RequestMapping(value = "/get/{id}")
     //@RequiresPermissions("grouppermission:update")
-    public GroupPermission getGroupPermission(@PathVariable Integer id){
-        GroupPermission groupPermission = groupPermissionService.findGroupPermissionById(id);
-        return groupPermission;
+    @ResponseBody
+    public AddGroupPermissionBean getGroupPermission(@PathVariable Integer id){
+        AddGroupPermissionBean addGroupPermissionBean = groupPermissionService.findGroupPermissionById(id);
+        return addGroupPermissionBean;
     }
 
     @RequestMapping(value = "/delete/{id}")
     //@RequiresPermissions("grouppermission:delete")
+    @ResponseBody
     public ResultBean deleteGroupPermission(@PathVariable Integer id){
         ResultBean resultBean = groupPermissionService.deleteGroupPermission(id);
         return resultBean;
@@ -58,10 +62,11 @@ public class GroupPermissionController {
 
     @RequestMapping("/getPermissionAndGroup")
     //@RequiresPermissions("grouppermission:add")
-    public ModelAndView getPermissionAndGroup(){
+    @ResponseBody
+    public AddGroupPermissionBean getPermissionAndGroup(){
         AddGroupPermissionBean permissionAndGroup = groupPermissionService.getPermissionAndGroup();
-        ModelAndView modelAndView = new ModelAndView("addPermission");
-        modelAndView.addObject("permissionAndGroup","");
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("addPermission");
+//        modelAndView.addObject("permissionAndGroup","");
+        return permissionAndGroup;
     }
 }

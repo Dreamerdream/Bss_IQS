@@ -30,15 +30,17 @@ public class DataTemplateController {
 
     @RequestMapping("/getDataQueryGroup")
     //@RequiresPermissions("template:add")
-    public ModelAndView getDataQueryGroup(){
-        ModelAndView modelAndView = new ModelAndView("");
+    @ResponseBody
+    public List<DataQueryGroup> getDataQueryGroup(){
         List<DataQueryGroup> dataQueryGroups = dataTemplateService.getDataQueryGroup();
-        modelAndView.addObject("dataQueryGroups",dataQueryGroups);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("");
+//        modelAndView.addObject("dataQueryGroups",dataQueryGroups);
+        return dataQueryGroups;
     }
 
     @RequestMapping("/getDataQuerySql/{dataQueryGroupId}")
     //@RequiresPermissions("template:add")
+    @ResponseBody
     public List<DataQuerySql> getDataQuerySql(@PathVariable Integer dataQueryGroupId){
         List<DataQuerySql> dqsByDqgId = dataTemplateService.findDqsByDqgId(dataQueryGroupId);
         return dqsByDqgId;
@@ -73,11 +75,12 @@ public class DataTemplateController {
     }
 
     @GetMapping("/get/{id}")
+    @ResponseBody
     //@RequiresPermissions("template:update")
-    public ModelAndView getTemplate(@PathVariable Integer id){
+    public DataTemplate getTemplate(@PathVariable Integer id){
         DataTemplate template = dataTemplateService.findTemplateById(id);
-        ModelAndView modelAndView = new ModelAndView("");
-        modelAndView.addObject("dataTemplate",template);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("");
+//        modelAndView.addObject("dataTemplate",template);
+        return template;
     }
 }

@@ -58,31 +58,33 @@ public class DataQueryTaskController {
 
 
     @RequestMapping("/get/{id}")
+    @ResponseBody
     //@RequiresPermissions("dataquerytask:update")
-    public ModelAndView getDataQueryTask(@PathVariable Integer id){
+    public DataQueryTask getDataQueryTask(@PathVariable Integer id){
         DataQueryTask dataQueryTask = queryTaskService.findDataQueryTaskById(id);
-        ModelAndView modelAndView = new ModelAndView("update");
-        modelAndView.addObject("user",dataQueryTask);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("update");
+//        modelAndView.addObject("user",dataQueryTask);
+        return  dataQueryTask;
     }
 
 
     @RequestMapping("/query/{type}/{keyword}")
     //@RequiresPermissions("dataquerytask:query")
-    public ModelAndView queryDataQueryTask(@PathVariable Integer type,@PathVariable String keyword){
+    public List<DataQueryTask> queryDataQueryTask(@PathVariable Integer type,@PathVariable String keyword){
         List<DataQueryTask> dataQueryTasks = queryTaskService.queryDataQueryTask(type, keyword);
-        ModelAndView modelAndView = new ModelAndView("updateUser");
-        modelAndView.addObject("user",dataQueryTasks);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("updateUser");
+//        modelAndView.addObject("user",dataQueryTasks);
+        return  dataQueryTasks;
 
     }
 
     @RequestMapping("/getTemplateAndAddress")
-    public ModelAndView getTemplateAndAddress(){
+    @ResponseBody
+    public AddDataQueryTaskBean getTemplateAndAddress(){
         AddDataQueryTaskBean templateAndAddress = queryTaskService.getTemplateAndAddress();
-        ModelAndView modelAndView = new ModelAndView("");
-        modelAndView.addObject("templateAndAddress",templateAndAddress);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("");
+//        modelAndView.addObject("templateAndAddress",templateAndAddress);
+        return  templateAndAddress;
     }
 
 

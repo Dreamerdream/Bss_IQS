@@ -32,13 +32,15 @@ public class DataQueryGroupController {
     @Autowired
     private IDataQueryGroupService dataQueryGroupService;
 
+    //用于添加
     @RequestMapping("/getdataQueryTasks")
+    @ResponseBody
     //@RequiresPermissions("dataquerygroup:add")
-    private ModelAndView getdataQueryTasks(){
+    private List<DataQueryTask> getdataQueryTasks(){
         List<DataQueryTask> dataQueryTasks = dataQueryGroupService.findAllDataQueryTasks();
-        ModelAndView modelAndView = new ModelAndView("Add");
-        modelAndView.addObject("dataQueryTasks",dataQueryTasks);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("Add");
+//        modelAndView.addObject("dataQueryTasks",dataQueryTasks);
+        return dataQueryTasks;
     }
 
     @PostMapping("/save")
@@ -49,8 +51,7 @@ public class DataQueryGroupController {
             return new ResultBean(1,"文件不能为空");
         }
 
-        String path = "D:\\";
-        String filePath = FileUtils.uploadFile(file, path);
+        String filePath = FileUtils.uploadFile(file);
         ResultBean result = null;
         if (filePath != null){
             result = dataQueryGroupService.savedataQueryGroup(filePath,dataQueryGroupName,dataQueryTaskId);
@@ -63,12 +64,13 @@ public class DataQueryGroupController {
 
 
     @RequestMapping("/getDataQueryGroup/{id}")
+    @ResponseBody
     //@RequiresPermissions("dataquerygroup:update")
-    public ModelAndView getDataQueryGroup(@PathVariable Integer id){
+    public UpdateDataQueryroupBean getDataQueryGroup(@PathVariable Integer id){
         UpdateDataQueryroupBean updateDataQueryroupBean = dataQueryGroupService.getdataQueryGroup(id);
-        ModelAndView modelAndView = new ModelAndView("");
-        modelAndView.addObject("updateDataQueryroupBean",updateDataQueryroupBean);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("");
+//        modelAndView.addObject("updateDataQueryroupBean",updateDataQueryroupBean);
+        return updateDataQueryroupBean;
     }
 
 

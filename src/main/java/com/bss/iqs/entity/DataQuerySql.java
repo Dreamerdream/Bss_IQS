@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author hgh
- * @since 2017-09-01
+ * @since 2017-09-07
  */
 @TableName("data_query_sql")
 public class DataQuerySql extends Model<DataQuerySql> {
@@ -39,6 +39,10 @@ public class DataQuerySql extends Model<DataQuerySql> {
 	private String description;
 	private Date createTime;
 	private Date updateTime;
+    /**
+     * 名称
+     */
+	private String name;
 
 
 	public Integer getId() {
@@ -89,6 +93,14 @@ public class DataQuerySql extends Model<DataQuerySql> {
 		this.updateTime = updateTime;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -103,6 +115,7 @@ public class DataQuerySql extends Model<DataQuerySql> {
 			", description=" + description +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
+			", name=" + name +
 			"}";
 	}
 }

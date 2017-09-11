@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author hgh
- * @since 2017-09-01
+ * @since 2017-09-08
  */
 @TableName("group_permission")
 public class GroupPermission extends Model<GroupPermission> {
@@ -44,6 +44,10 @@ public class GroupPermission extends Model<GroupPermission> {
 	private String permissionName;
 	private Date createTime;
 	private Date updateTime;
+    /**
+     * 用户真实名字
+     */
+	private String realName;
 
 
 	public Integer getId() {
@@ -110,6 +114,14 @@ public class GroupPermission extends Model<GroupPermission> {
 		this.updateTime = updateTime;
 	}
 
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -126,6 +138,7 @@ public class GroupPermission extends Model<GroupPermission> {
 			", permissionName=" + permissionName +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
+			", realName=" + realName +
 			"}";
 	}
 }

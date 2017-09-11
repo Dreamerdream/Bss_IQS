@@ -71,6 +71,8 @@ public class DataQueryGroupServiceImpl extends ServiceImpl<DataQueryGroupMapper,
         dataQueryGroup.setUpdateTime(new Date());
         Integer integer = dataQueryGroupMapper.updateById(dataQueryGroup);
         if (integer != null){
+            //将原来的关联任务修改status
+
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("修改成功");

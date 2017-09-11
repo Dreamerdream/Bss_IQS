@@ -22,7 +22,7 @@ public interface IGroupPermissionService extends IService<GroupPermission> {
      ResultBean updateGroupPermission(GroupPermission groupPermission);
 
 
-     GroupPermission findGroupPermissionById(Integer id);
+     AddGroupPermissionBean findGroupPermissionById(Integer id);
 
 
      ResultBean deleteGroupPermission(Integer id);

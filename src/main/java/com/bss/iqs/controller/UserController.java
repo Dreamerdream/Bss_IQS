@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 2017-08-25
  */
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -59,11 +59,13 @@ public class UserController {
 
     @GetMapping("/get/{id}")
     //@RequiresPermissions("user:update")
-    public ModelAndView getUser(@PathVariable Integer id){
+    @ResponseBody
+    public User getUser(@PathVariable Integer id){
         User user = userService.getUser(id);
-        ModelAndView modelAndView = new ModelAndView("update");
-        modelAndView.addObject("user",user);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("update");
+//        modelAndView.addObject("user",user);
+//        return  modelAndView;
+        return user;
     }
 
 
@@ -77,11 +79,12 @@ public class UserController {
 
     @GetMapping("/getDepartmentAndUserGroup")
     //@RequiresPermissions("user:add")
-    public ModelAndView getDepartmentAndUserGroup(){
+    @ResponseBody
+    public AddUserBean getDepartmentAndUserGroup(){
         AddUserBean departmentAndUserGroup = userService.getDepartmentAndUserGroup();
-        ModelAndView modelAndView = new ModelAndView("addUser");
-        modelAndView.addObject("departmentAndUserGroup",departmentAndUserGroup);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("addUser");
+//        modelAndView.addObject("departmentAndUserGroup",departmentAndUserGroup);
+        return  departmentAndUserGroup;
     }
 
 

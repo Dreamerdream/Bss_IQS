@@ -152,13 +152,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         List<Department> departments = departmentMapper.selectList(departmentWrapper);
         Wrapper<UserGroup> userGroupWrapper = new EntityWrapper<>();
         List<UserGroup> userGroups = userGroupMapper.selectList(userGroupWrapper);
-        if (departments != null && departments.size() != 0 && userGroups != null && userGroups.size() != 0) {
-            AddUserBean userResult = new AddUserBean();
+        AddUserBean userResult = new AddUserBean();
+        if (departments != null && departments.size() != 0 ) {
             userResult.setDepartments(departments);
-            userResult.setUserGroups(userGroups);
-            return userResult;
         }
-        return null;
+        if (userGroups != null && userGroups.size() != 0){
+            userResult.setUserGroups(userGroups);
+        }
+        return userResult;
     }
 
     @Transactional
@@ -465,7 +466,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             }
         } else {
             //如果用户被分组,删掉原有用户组中用户的权限,赋予其他组权限
-
             if (userGPI != 0) {
                 //删除原先的组中的userId
                 GroupPermission oldGroupPermission = groupPermissionMapper.selectById(user.getGroupPermissionId());

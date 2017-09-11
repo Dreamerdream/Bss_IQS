@@ -18,19 +18,20 @@ public class PDFUtil {
 
     public static void main(String[] args) throws Exception{
         String templatePath="D:\\success.html";
-        String targetPath="D:\\购票证明3.pdf";
-        String watermarkPath="D:\\hhh.png";
-        createPdfWithMark(templatePath,targetPath,watermarkPath,400,400);
+        String targetPath="D:\\aaaaa.pdf";
+      //  String watermarkPath="D:\\hhh.png";
+        Integer id = 66;
+        createPdfWithMark(id,targetPath,"",400,400);
     }
 
-    public static void createPdfWithMark(String htmlFile,String targetUrl,String markPicUrl,int xCoord,int yCoord) throws Exception {
-        String tempPdf="D:\\"+Thread.currentThread().getId()+"temp.pdf";
-        createPdfByHtmlFile(htmlFile,tempPdf);
-        addPdfMark(tempPdf, targetUrl, markPicUrl, xCoord, yCoord, 1);
+    public static void createPdfWithMark(Integer id,String targetUrl,String markPicUrl,int xCoord,int yCoord) throws Exception {
+        String tempPdf="D:\\"+Thread.currentThread().getId()+"temp.pdf"; // pdf文件目录
+        createPdfByHtmlFile(id,tempPdf);
+    //    addPdfMark(tempPdf, targetUrl, markPicUrl, xCoord, yCoord, 1);
     }
 
-    public static PdfWriter createPdfByHtmlFile(String htmlFile, String targetUrl) throws Exception {
-        String html = FileUtils.readFile(htmlFile);
+    public static PdfWriter createPdfByHtmlFile(Integer id, String targetUrl) throws Exception {
+        String html = FileUtils.readFile(id);
         return createPdfByHtml(html,targetUrl);
     }
 

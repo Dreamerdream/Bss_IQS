@@ -7,8 +7,11 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.bss.iqs.bean.ResultBean;
 import com.bss.iqs.entity.DataQueryGroup;
 import com.bss.iqs.entity.DataQuerySql;
+import com.bss.iqs.entity.DataTemplate;
+import com.bss.iqs.entity.DataTemplateSql;
 import com.bss.iqs.mapper.DataQueryGroupMapper;
 import com.bss.iqs.mapper.DataQuerySqlMapper;
+import com.bss.iqs.mapper.DataTemplateSqlMapper;
 import com.bss.iqs.service.IDataQuerySqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +37,9 @@ public class DataQuerySqlServiceImpl extends ServiceImpl<DataQuerySqlMapper, Dat
     @Autowired
     private DataQueryGroupMapper dataQueryGroupMapper;
 
+    @Autowired
+    private DataTemplateSqlMapper dataTemplateSqlMapper;
+
 
     @Transactional
     @Override
@@ -56,6 +62,10 @@ public class DataQuerySqlServiceImpl extends ServiceImpl<DataQuerySqlMapper, Dat
     public ResultBean deleteDataQuerySql(Integer id) {
         Integer integer = dataQuerySqlMapper.deleteById(id);
         if (integer != null){
+            //删除主子表中的所有含有该SQL的记录
+            Wrapper<DataTemplateSql> dataTemplateSqlWrapper = new EntityWrapper<>();
+            dataTemplateSqlWrapper.eq("sqlId",id);
+            dataTemplateSqlMapper.delete(dataTemplateSqlWrapper);
             ResultBean result = new ResultBean();
             result.setErrorCode(0);
             result.setErrorReason("删除成功");

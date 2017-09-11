@@ -12,9 +12,10 @@ public class AddGroupPermissionBean {
 
     private List<SystemPermission> systemPermissions;
 
-    private List<GroupPermission> groupPermissions;
 
+    private List<GroupPermissionBean> groupPermissionBeans;
 
+    //未分组用户
     private List<User> users;
 
     public List<SystemPermission> getSystemPermissions() {
@@ -25,12 +26,12 @@ public class AddGroupPermissionBean {
         this.systemPermissions = systemPermissions;
     }
 
-    public List<GroupPermission> getGroupPermissions() {
-        return groupPermissions;
+    public List<GroupPermissionBean> getGroupPermissionBeans() {
+        return groupPermissionBeans;
     }
 
-    public void setGroupPermissions(List<GroupPermission> groupPermissions) {
-        this.groupPermissions = groupPermissions;
+    public void setGroupPermissionBeans(List<GroupPermissionBean> groupPermissionBeans) {
+        this.groupPermissionBeans = groupPermissionBeans;
     }
 
     public List<User> getUsers() {

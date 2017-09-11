@@ -58,12 +58,13 @@ public class RdsController {
 
 
     @GetMapping("/get/{id}")
+    @ResponseBody
     //@RequiresPermissions("rds:update")
-    public ModelAndView getRDS(@PathVariable Integer id){
+    public Rds getRDS(@PathVariable Integer id){
         Rds rds = rdsService.getRDS(id);
-        ModelAndView modelAndView = new ModelAndView("updateRDS");
-        modelAndView.addObject("rds",rds);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("updateRDS");
+//        modelAndView.addObject("rds",rds);
+        return  rds;
     }
 
     @GetMapping("/queryAll")

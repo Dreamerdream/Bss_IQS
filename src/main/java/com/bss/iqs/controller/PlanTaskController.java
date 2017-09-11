@@ -63,11 +63,12 @@ public class PlanTaskController {
 
     @GetMapping("/get/{id}")
     //@RequiresPermissions("plantask:update")
-    public ModelAndView findPlanTaskById(@PathVariable Integer id){
+    @ResponseBody
+    public PlanTask findPlanTaskById(@PathVariable Integer id){
         PlanTask planTask = planTaskService.findPlanTaskById(id);
-        ModelAndView modelAndView = new ModelAndView("updatePlanTask");
-        modelAndView.addObject("updatePlanTask",planTask);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("updatePlanTask");
+//        modelAndView.addObject("updatePlanTask",planTask);
+        return  planTask;
     }
 
 //    @GetMapping("/query/{groupId}/{keyword}/{pageNum}/{pageSize}")
@@ -81,6 +82,7 @@ public class PlanTaskController {
 
     @GetMapping("/findAllDataQueryGroup")
     //@RequiresPermissions("plantask:add")
+    @ResponseBody
     public List<DataQueryGroup> findAllDataQueryGroup(){
         List<DataQueryGroup> dataQueryGroup = planTaskService.findAllDataQueryGroup();
 //        ModelAndView modelAndView = new ModelAndView("");
@@ -105,8 +107,8 @@ public class PlanTaskController {
     @GetMapping("/getPlanTask/{dataQueryGroupId}/{type}")
     @ResponseBody
     //@RequiresPermissions("plantask:query")
-    public  List<PlanTask> findPlanTaskByDqgId(@PathVariable Integer dataQueryGroupId,@PathVariable String name){
-        List<PlanTask> planTaskByDqgId = planTaskService.findPlanTaskByDqgId(dataQueryGroupId, name);
+    public  List<PlanTask> findPlanTaskByDqgId(@PathVariable Integer dataQueryGroupId,@PathVariable String type){
+        List<PlanTask> planTaskByDqgId = planTaskService.findPlanTaskByDqgId(dataQueryGroupId, type);
         return planTaskByDqgId;
     }
 

@@ -60,16 +60,18 @@ public class DataQuerySqlController {
 
 
     @RequestMapping("/get/{id}")
+    @ResponseBody
     //@RequiresPermissions("dataquerysql:update")
-    public ModelAndView findDataQuerySqlById(@PathVariable Integer id){
+    public DataQuerySql findDataQuerySqlById(@PathVariable Integer id){
         DataQuerySql dataQuerySql = dataQuerySqlService.findDataQuerySqlById(id);
-        ModelAndView modelAndView = new ModelAndView("update");
-        modelAndView.addObject("user",dataQuerySql);
-        return  modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("update");
+//        modelAndView.addObject("user",dataQuerySql);
+        return  dataQuerySql;
     }
 
     @RequestMapping("/getDataQueryGroup")
     //@RequiresPermissions("dataquerysql:add")
+    @ResponseBody
     public ModelAndView getDataQueryGroup(){
         List<DataQueryGroup> dataQueryGroups = dataQuerySqlService.findAllDataQueryGroup();
         ModelAndView modelAndView = new ModelAndView("");
@@ -78,6 +80,7 @@ public class DataQuerySqlController {
     }
 
     @RequestMapping("/query/{type}/{keyword}/")
+    @ResponseBody
     //@RequiresPermissions("dataquerysql:query")
     public List<DataQuerySql> queryDataQuerySql(@PathVariable Integer dataQueryGroupId,@PathVariable String keyword){
         List<DataQuerySql> dataQuerySqls = dataQuerySqlService.queryDataQuerySql(dataQueryGroupId, keyword);

@@ -1,5 +1,6 @@
 package com.bss.iqs.util;
 
+import com.bss.iqs.value.FilePath;
 import com.lowagie.text.Annotation;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -8,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public class FileUtils {
 
     // 保存group logo文件
-    public static String uploadFile(MultipartFile file, String path){
+    public static String uploadFile(MultipartFile file){
 
         String filePath = null;
 
@@ -22,7 +24,7 @@ public class FileUtils {
             //文件名
             String fileName = file.getOriginalFilename();
             // 文件上传后的路径
-            filePath = path + File.separator + fileName;
+            filePath = FilePath.LOGO_PATH + File.separator + fileName;
             InputStream inputStream = file.getInputStream();
             os = new FileOutputStream( filePath);
             byte[] bs = new byte[1024];
@@ -48,13 +50,13 @@ public class FileUtils {
     }
 
     //将模板的内容保存为.fdl文件
-    public static void templat2ftl(String content,String path){
+    public static void templat2ftl(String content,Integer id){
         byte[] b=content.getBytes();
         BufferedOutputStream stream = null;
         File file = null;
-        String fileName = "abcde"; //.fdl文件
+        String fileName = "template_" + id + ".ftl"; //.fdl文件
         try {
-            file = new File(path + File.separator + fileName + ".ftl");
+            file = new File(FilePath.FREEMARK_PATH + File.separator + fileName );
             FileOutputStream fstream = new FileOutputStream(file);
             stream = new BufferedOutputStream(fstream);
             stream.write(b);
@@ -74,21 +76,26 @@ public class FileUtils {
 
 
     //将freemarker生成html
-    public static void ftl2html(Map<String,Object> model,String path) throws Exception{
+    public static void ftl2html(Map<String,Object> model,Integer id) throws Exception{
+        //读取freemark的目录
+        File file = new File(FilePath.FREEMARK_PATH);
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_26);
-        configuration.setDirectoryForTemplateLoading(new File("D:\\"));
+        configuration.setDirectoryForTemplateLoading(file);
         configuration.setDefaultEncoding("UTF-8");
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);//.RETHROW
         configuration.setClassicCompatible(true);
-        Template template = configuration.getTemplate("abcde.ftl"); // freeMarker template
-        Writer out = new FileWriter(new File("D:\\abcde.html"));
+        String freemarkName = "template_" + id + ".ftl";
+        Template template = configuration.getTemplate(freemarkName); // freeMarker template
+        String fileName =  "html_" + id + ".html";
+        Writer out = new FileWriter(new File(FilePath.HTML_PATH + File.separator + fileName));
         template.process(model,out);
         out.close();
     }
 
 
     //读取html文件成字符串
-    public static String  readFile(String path) throws Exception{
+    public static String  readFile(Integer id) throws Exception{
+        String path = FilePath.HTML_PATH + File.separator + "html_" + id + ".html";
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader bufReader=new BufferedReader(fileReader);
@@ -107,25 +114,29 @@ public class FileUtils {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-//
-//        String content = "<!DOCTYPE html>\n" +
-//                "<html xmlns:th=\"http://www.thymeleaf.org\">\n" +
-//                "<head>\n" +
-//                "    <title>Getting Started: Serving Web Content</title>\n" +
-//                "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n" +
-//                "</head>\n" +
-//                "<body>\n" +
-//                "<h4 th:text=\"${msg}\"></h4>\n" +
-//                "<form th:action=\"@{/user/login}\" method =\"post\">\n" +
-//                "    <div><input name=\"username\"  type=\"text\"/></div>\n" +
-//                "    <div><input name=\"password\"  type=\"password\"/></div>\n" +
-//                "    <input type=\"submit\" value=\"提交\"/>\n" +
-//                "</form>\n" +
-//                "\n" +
-//                "</body>\n" +
-//                "</html>";
+    public static void main(String[] args) throws Exception{
+
+        String content = "<!DOCTYPE html>\n" +
+                "<html xmlns:th=\"http://www.thymeleaf.org\">\n" +
+                "<head>\n" +
+                "    <title>Getting Started: Serving Web Content</title>\n" +
+                "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h4 th:text=\"${msg}\"></h4>\n" +
+                "<form th:action=\"@{/user/login}\" method =\"post\">\n" +
+                "    <div><input name=\"username\"  type=\"text\"/></div>\n" +
+                "    <div><input name=\"password\"  type=\"password\"/></div>\n" +
+                "    <input type=\"submit\" value=\"提交\"/>\n" +
+                "</form>\n" +
+                "\n" +
+                "</body>\n" +
+                "</html>";
 //        String path ="D:\\";
 //        uploadFile(content,path);
+     //   templat2ftl(content,66);
+        Map<String,Object> map = new HashMap<>();
+        map.put("msg","hgh");
+        ftl2html(map,66);
     }
 }

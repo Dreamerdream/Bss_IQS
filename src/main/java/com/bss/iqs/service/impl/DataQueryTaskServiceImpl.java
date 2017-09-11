@@ -43,6 +43,9 @@ public class DataQueryTaskServiceImpl extends ServiceImpl<DataQueryTaskMapper, D
     @Autowired
     private DataQueryGroupMapper dataQueryGroupMapper;
 
+    @Autowired
+    private PlanQueryTaskMapper planQueryTaskMapper;
+
     @Transactional
     @Override
     public ResultBean saveDataQueryTask(DataQueryTask dataQueryTask) {
@@ -65,10 +68,15 @@ public class DataQueryTaskServiceImpl extends ServiceImpl<DataQueryTaskMapper, D
     public ResultBean deleteDataQueryTask(Integer id) {
         Integer integer = dataQueryTaskMapper.deleteById(id);
         if (integer != null){
-            ResultBean result = new ResultBean();
-            result.setErrorCode(0);
-            result.setErrorReason("删除成功");
-            return result;
+            Wrapper<PlanQueryTask> planQueryTaskWrapper = new EntityWrapper<>();
+            planQueryTaskWrapper.eq("dataQueryTaskId",id);
+            Integer delete = planQueryTaskMapper.delete(planQueryTaskWrapper);
+            if (delete != null){
+                ResultBean result = new ResultBean();
+                result.setErrorCode(0);
+                result.setErrorReason("删除成功");
+                return result;
+            }
         }
         return null;
     }
